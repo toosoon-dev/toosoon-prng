@@ -5,14 +5,14 @@ import prng from './prng';
 export interface PRNGController<T = unknown> {
   seed: string;
   value: T;
-  addGUI(gui: Gui, min?: number, max?: number, step?: number): GuiController;
+  addGui(gui: Gui, min?: number, max?: number, step?: number): GuiController;
   getValue(): T;
   dispose(): void;
 }
 
 export interface PRNGGroupController<T = unknown> {
   seed: string;
-  addGUI(gui: Gui, min?: number, max?: number, step?: number): Gui;
+  addGui(gui: Gui, min?: number, max?: number, step?: number): Gui;
   createController(index: number): PRNGController<T>;
   getValueAt(index: number): T;
   dispose(): void;
@@ -31,7 +31,7 @@ abstract class BasePRNGController<T> implements PRNGController<T> {
     prng.addController(this);
   }
 
-  abstract addGUI(gui: Gui, min?: number, max?: number, step?: number): GuiController;
+  abstract addGui(gui: Gui, min?: number, max?: number, step?: number): GuiController;
 
   abstract getValue(): T;
 
@@ -55,7 +55,7 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
     this.seed = seed;
   }
 
-  addGUI(gui: Gui, min?: number, max?: number, step?: number) {
+  addGui(gui: Gui, min?: number, max?: number, step?: number) {
     this.gui = gui.addFolder(this.seed).close();
     this.guiArgs = { min, max, step };
     return this.gui;
@@ -69,7 +69,7 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
       controller = this.createController(index);
       if (this.gui) {
         controller
-          .addGUI(this.gui, this.guiArgs.min, this.guiArgs.max, this.guiArgs.step)
+          .addGui(this.gui, this.guiArgs.min, this.guiArgs.max, this.guiArgs.step)
           .name(`${this.seed}-${index}`);
       }
       this.controllers[index] = controller;
@@ -98,7 +98,7 @@ export class BooleanController extends BasePRNGController<boolean> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui.add(this, 'value').name(this.seed);
     return this.gui;
   }
@@ -121,7 +121,7 @@ export class SignController extends BasePRNGController<number> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui.add(this, 'value', [-1, 1]).name(this.seed);
     return this.gui;
   }
@@ -146,7 +146,7 @@ export class FloatController extends BasePRNGController<number> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui, min: number, max: number, step: number = 0.01) {
+  addGui(gui: Gui, min: number, max: number, step: number = 0.01) {
     this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
     return this.gui;
   }
@@ -171,7 +171,7 @@ export class IntController extends BasePRNGController<number> {
     this.value = prng.randomInt(this.seed, min, max);
   }
 
-  addGUI(gui: Gui, min: number, max: number, step = 1) {
+  addGui(gui: Gui, min: number, max: number, step = 1) {
     this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
     return this.gui;
   }
@@ -192,7 +192,7 @@ export class HexColorController extends BasePRNGController<string> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui.addColor(this, 'value').name(this.seed);
     return this.gui;
   }
@@ -215,7 +215,7 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui.add(this, 'value', this.items).name(this.seed);
     return this.gui;
   }
@@ -238,7 +238,7 @@ export class ObjectPropertyController<T = unknown> extends BasePRNGController<T>
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui.add(this, 'value', this.object).name(this.seed);
     return this.gui;
   }
@@ -265,7 +265,7 @@ export class WeightsController<T = unknown> extends BasePRNGController<T> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
+  addGui(gui: Gui) {
     this.gui = gui
       .add(
         this,

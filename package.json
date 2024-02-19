@@ -1,7 +1,7 @@
 {
   "name": "toosoon-prng",
-  "version": "1.0.3",
-  "description": "Pseudo-random number generator utility functions & helpers",
+  "version": "1.0.4",
+  "description": "Pseudo-random number generator utility functions & controllers",
   "main": "./lib/index.js",
   "scripts": {
     "build": "npx tsc",

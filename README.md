@@ -1,6 +1,6 @@
 # TOOSOON PRNG
 
-TOOSOON pseudo-random number generator utility functions & helpers.
+TOOSOON pseudo-random number generator utility functions & controllers.
 
 ## Installation
 
@@ -24,59 +24,27 @@ PRNG:
 import prng from 'toosoon-prng';
 
 prng.setSeed('010101');
-console.log(prng.randomFloat('angle', 0, Math.PI)); // Pseudo-random float number in the interval [0, 3.14...]
+console.log(prng.randomFloat('angle', 0, Math.PI)); // Pseudo-random number in the interval [0, PI]
 ```
 
 PRNG Controllers:
 
 ```ts
-import {
-  BooleanController,
-  SignController,
-  FloatController,
-  IntController,
-  HexColorController,
-  ItemController,
-  ObjectPropertyController,
-  WeightsController,
-  BooleanGroupController,
-  SignGroupController,
-  FloatGroupController,
-  IntGroupController,
-  HexColorGroupController,
-  ItemGroupController,
-  ObjectPropertyGroupController,
-  WeightsGroupController
-} from 'toosoon-prng';
-
-const seed = '010101';
+import { FloatController, FloatGroupController } from 'toosoon-prng';
 
 const config = {
-  // Controllers
-  boolean: new BooleanController(`${seed}-boolean`, 0.5),
-  sign: new SignController(`${seed}-sign`, 0.5),
-  float: new FloatController(`${seed}-float`, 0, 1),
-  int: new IntController(`${seed}-int`, 0, 10),
-  hex: new HexColorController(`${seed}-hex`),
-  item: new ItemController<number>(`${seed}-item`, [0, 0.5, 1]),
-  property: new ObjectPropertyController<boolean>(`${seed}-property`, { foo: true, bar: false }),
-  value: new WeightsController<string>(`${seed}-value`, [
-    { weight: 0.5, value: 'foo' },
-    { weight: 2, value: 'bar' }
-  ]),
-  // Group Controllers
-  groupBoolean: new BooleanGroupController(`${seed}-group-boolean`, 0.5),
-  groupSign: new SignGroupController(`${seed}-group-sign`, 0.5),
-  groupFloat: new FloatGroupController(`${seed}-group-float`, 0, 1),
-  groupInt: new IntGroupController(`${seed}-group-int`, 0, 10),
-  groupHex: new HexColorGroupController(`${seed}-group-hex`),
-  groupItem: new ItemGroupController<number>(`${seed}-group-item`, [0, 0.5, 1]),
-  groupProperty: new ObjectPropertyGroupController<boolean>(`${seed}-group-property`, { foo: true, bar: false }),
-  groupValue: new WeightsGroupController<string>(`${seed}-group-value`, [
-    { weight: 0.5, value: 'foo' },
-    { weight: 2, value: 'bar' }
-  ])
+  angle: new FloatController('angle', 0, Math.PI),
+  angles: new FloatGroupController('angle', 0, Math.PI)
 };
+
+config.angle.addGui(gui, 0, Math.PI, 0.01);
+config.angles.addGui(gui, 0, Math.PI, 0.01);
+
+console.log(config.angle.getValue()); // Pseudo-random number in the interval [0, PI]
+
+for (let i = 0; i < 5; i++) {
+  console.log(config.angles.getValueAt(i)); // 5 Pseudo-random numbers in the interval [0, PI]
+}
 ```
 
 ## PRNG Functions
