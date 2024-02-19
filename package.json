@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Pseudo-random number generator utility functions & helpers",
   "main": "./lib/index.js",
   "scripts": {

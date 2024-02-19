@@ -2,17 +2,6 @@ import type { Gui, GuiController } from 'toosoon-gui';
 
 import prng from './prng';
 
-export enum PRNGControllerTypes {
-  Boolean = 'Boolean',
-  Sign = 'Sign',
-  Float = 'Float',
-  Int = 'Int',
-  HexColor = 'HexColor',
-  Item = 'Item',
-  ObjectProperty = 'ObjectProperty',
-  Weights = 'Weights'
-}
-
 export interface PRNGController<T = unknown> {
   seed: string;
   value: T;
