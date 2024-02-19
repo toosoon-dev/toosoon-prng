@@ -1,0 +1,31 @@
+{
+  "name": "toosoon-prng",
+  "version": "1.0.0",
+  "description": "Pseudo-random number generator utility functions & helpers",
+  "main": "./lib/index.js",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toosoon-dev/toosoon-prng.git"
+  },
+  "keywords": [
+    "tooson",
+    "prng",
+    "random"
+  ],
+  "author": "Arnaud Rocca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toosoon-dev/toosoon-prng/issues"
+  },
+  "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
+  "dependencies": {
+    "toosoon-gui": "^1.0.2"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  }
+}
