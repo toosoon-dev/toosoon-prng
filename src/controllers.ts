@@ -102,7 +102,7 @@ export class BooleanController extends BasePRNGController<boolean> {
   value: boolean;
   probability: number;
 
-  constructor(seed: string, probability = 0.5) {
+  constructor(seed: string, probability: number = 0.5) {
     super(seed);
 
     this.probability = probability;
@@ -125,7 +125,7 @@ export class SignController extends BasePRNGController<number> {
   value: number;
   probability: number;
 
-  constructor(seed: string, probability = 0.5) {
+  constructor(seed: string, probability: number = 0.5) {
     super(seed);
 
     this.probability = probability;
@@ -149,7 +149,7 @@ export class FloatController extends BasePRNGController<number> {
   min: number;
   max: number;
 
-  constructor(seed: string, min = 0, max = 1) {
+  constructor(seed: string, min: number = 0, max: number = 1) {
     super(seed);
 
     this.min = min;
@@ -174,7 +174,7 @@ export class IntController extends BasePRNGController<number> {
   min: number;
   max: number;
 
-  constructor(seed: string, min = 0, max = 1) {
+  constructor(seed: string, min: number, max: number) {
     super(seed);
 
     this.min = min;
@@ -240,9 +240,9 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
 
 export class ObjectPropertyController<T = unknown> extends BasePRNGController<T> {
   value: T;
-  object: Object;
+  object: { [key: string]: T };
 
-  constructor(seed: string, object: Object) {
+  constructor(seed: string, object: { [key: string]: T }) {
     super(seed);
 
     this.object = object;
@@ -255,7 +255,7 @@ export class ObjectPropertyController<T = unknown> extends BasePRNGController<T>
   }
 
   getValue() {
-    this.value = prng.randomObjectProperty(this.seed, this.object) as T;
+    this.value = prng.randomObjectProperty<T>(this.seed, this.object) as T;
     this.gui?.updateDisplay();
     return this.value;
   }
@@ -390,10 +390,10 @@ export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T>
 }
 
 export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupController<T> {
-  object: Object;
+  object: { [key: string]: T };
   controllers: ObjectPropertyController<T>[] = [];
 
-  constructor(seed: string, object: Object) {
+  constructor(seed: string, object: { [key: string]: T }) {
     super(seed);
 
     this.object = object;

@@ -138,38 +138,70 @@ prng.randomIndex(seed: string, weights?: number[]) => number;
 
 ## PRNG Controllers
 
-`BooleanController`
+```ts
+class BooleanController(seed: string, probability?: number);
+```
 
-`SignController`
+```ts
+class SignController(seed: string, probability?: number);
+```
 
-`FloatController`
+```ts
+class FloatController(seed: string, min?: number, max?: number);
+```
 
-`IntController`
+```ts
+class IntController(seed: string, min: number, max: number);
+```
 
-`HexColorController`
+```ts
+class HexColorController(seed: string);
+```
 
-`ItemController`
+```ts
+class ItemController<T>(seed: string, items: T[]);
+```
 
-`ObjectPropertyController`
+```ts
+class ObjectPropertyController<T>(seed: string, object: object);
+```
 
-`WeightsController`
+```ts
+class WeightsController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+```
 
-`BooleanGroupController`
+```ts
+class BooleanGroupController(seed: string, probability: number);
+```
 
-`SignGroupController`
+```ts
+class SignGroupController(seed: string, probability: number);
+```
 
-`FloatGroupController`
+```ts
+class FloatGroupController(seed: string, min: number, max: number);
+```
 
-`IntGroupController`
+```ts
+class IntGroupController(seed: string, min: number, max: number);
+```
 
-`HexColorGroupController`
+```ts
+class HexColorGroupController(seed: string);
+```
 
-`ItemGroupController`
+```ts
+class ItemGroupController<T>(seed: string, items: T[]);
+```
 
-`ObjectPropertyGroupController`
+```ts
+class ObjectPropertyGroupController<T>(seed: string, object: object);
+```
 
-`WeightsGroupController`
+```ts
+class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+```
 
 ## License
 
-MIT License, see [LICENSE](https://github.com/toosoon-dev/toosoon-lsystem/tree/master/LICENSE) for details
+MIT License, see [LICENSE](https://github.com/toosoon-dev/toosoon-prng/tree/master/LICENSE) for details

@@ -75,7 +75,7 @@ class PRNG {
     return array[this.randomInt(seed, 0, array.length - 1)];
   }
 
-  public randomObjectProperty(seed: string, object: object): unknown | undefined {
+  public randomObjectProperty<T = unknown>(seed: string, object: { [key: string]: T }): T | undefined {
     const keys = Object.keys(object);
     const key = this.randomItem(seed, keys);
     if (key && object.hasOwnProperty(key)) {
