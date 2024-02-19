@@ -5,8 +5,8 @@ import prng from './prng';
 export enum PRNGControllerTypes {
   Boolean = 'Boolean',
   Sign = 'Sign',
-  Int = 'Int',
   Float = 'Float',
+  Int = 'Int',
   HexColor = 'HexColor',
   Item = 'Item',
   ObjectProperty = 'ObjectProperty',
@@ -144,31 +144,6 @@ export class SignController extends BasePRNGController<number> {
   }
 }
 
-export class IntController extends BasePRNGController<number> {
-  value: number;
-  min: number;
-  max: number;
-
-  constructor(seed: string, min = 0, max = 1) {
-    super(seed);
-
-    this.min = min;
-    this.max = max;
-    this.value = prng.randomInt(this.seed, min, max);
-  }
-
-  addGUI(gui: Gui, min: number, max: number, step = 1) {
-    this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
-    return this.gui;
-  }
-
-  getValue() {
-    this.value = prng.randomInt(this.seed, this.min, this.max);
-    this.gui?.updateDisplay();
-    return this.value;
-  }
-}
-
 export class FloatController extends BasePRNGController<number> {
   value: number;
   min: number;
@@ -189,6 +164,31 @@ export class FloatController extends BasePRNGController<number> {
 
   getValue() {
     this.value = prng.randomFloat(this.seed, this.min, this.max);
+    this.gui?.updateDisplay();
+    return this.value;
+  }
+}
+
+export class IntController extends BasePRNGController<number> {
+  value: number;
+  min: number;
+  max: number;
+
+  constructor(seed: string, min = 0, max = 1) {
+    super(seed);
+
+    this.min = min;
+    this.max = max;
+    this.value = prng.randomInt(this.seed, min, max);
+  }
+
+  addGUI(gui: Gui, min: number, max: number, step = 1) {
+    this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
+    return this.gui;
+  }
+
+  getValue() {
+    this.value = prng.randomInt(this.seed, this.min, this.max);
     this.gui?.updateDisplay();
     return this.value;
   }
@@ -328,23 +328,6 @@ export class SignGroupController extends BasePRNGGroupController<number> {
   }
 }
 
-export class IntGroupController extends BasePRNGGroupController<number> {
-  min: number;
-  max: number;
-  controllers: IntController[] = [];
-
-  constructor(seed: string, min: number, max: number) {
-    super(seed);
-
-    this.min = min;
-    this.max = max;
-  }
-
-  createController(index: number) {
-    return new IntController(`${this.seed}-${index}`, this.min, this.max);
-  }
-}
-
 export class FloatGroupController extends BasePRNGGroupController<number> {
   min: number;
   max: number;
@@ -359,6 +342,23 @@ export class FloatGroupController extends BasePRNGGroupController<number> {
 
   createController(index: number) {
     return new FloatController(`${this.seed}-${index}`, this.min, this.max);
+  }
+}
+
+export class IntGroupController extends BasePRNGGroupController<number> {
+  min: number;
+  max: number;
+  controllers: IntController[] = [];
+
+  constructor(seed: string, min: number, max: number) {
+    super(seed);
+
+    this.min = min;
+    this.max = max;
+  }
+
+  createController(index: number) {
+    return new IntController(`${this.seed}-${index}`, this.min, this.max);
   }
 }
 

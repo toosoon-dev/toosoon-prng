@@ -28,12 +28,8 @@ class PRNG {
 
   public setSeed(seed: string) {
     if (this.seed === seed) return;
-
     this.seed = seed;
-
-    this.controllers.forEach((controller) => {
-      controller.getValue();
-    });
+    this.controllers.forEach((controller) => controller.getValue());
   }
 
   public setMethod(method: PRNGMethod) {
@@ -62,12 +58,12 @@ class PRNG {
     return this.randomBoolean(seed, probability) ? 1 : -1;
   }
 
-  public randomInt(seed: string, min: number, max: number) {
-    return Math.floor(this.random(seed) * (max - min + 1) + min);
-  }
-
   public randomFloat(seed: string, min: number = 0, max: number = 1, precision: number = 2): number {
     return parseFloat(Math.min(min + this.random(seed) * (max - min), max).toFixed(precision));
+  }
+
+  public randomInt(seed: string, min: number, max: number) {
+    return Math.floor(this.random(seed) * (max - min + 1) + min);
   }
 
   public randomHexColor(seed: string): string {
