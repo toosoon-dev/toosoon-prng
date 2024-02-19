@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Pseudo-random number generator utility functions & controllers",
   "main": "./lib/index.js",
   "scripts": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
   "dependencies": {
-    "toosoon-gui": "^1.0.2"
+    "toosoon-gui": "^1.0.6"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
