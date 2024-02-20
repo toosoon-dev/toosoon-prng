@@ -1,4 +1,4 @@
-import type { Gui, GuiController } from 'toosoon-gui';
+import { Gui, GuiController } from 'toosoon-gui';
 
 import prng from './prng';
 

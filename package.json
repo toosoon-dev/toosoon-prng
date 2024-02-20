@@ -14,7 +14,11 @@
   "keywords": [
     "tooson",
     "prng",
-    "random"
+    "pseudo-random",
+    "random",
+    "randomization",
+    "procedural",
+    "generative"
   ],
   "author": "Arnaud Rocca",
   "license": "MIT",
