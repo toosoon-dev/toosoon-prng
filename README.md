@@ -22,7 +22,11 @@ $ npm install toosoon-prng
 
 ##### PRNG
 
+##### setSeed
+
 ```ts
+##### randomFloat
+
 import prng from 'toosoon-prng';
 
 prng.setSeed('010101');
@@ -51,17 +55,23 @@ for (let i = 0; i < 5; i++) {
 
 ## PRNG Methods
 
-Set the PRNG instance seed.
+##### setSeed
+
+Set the `PRNG` instance seed.
 
 ```ts
 prng.setSeed(seed: string) => void;
 ```
 
-Set the PRNG instance method for generating pseudo-random values.
+##### setMethod
+
+Set the `PRNG` instance method for generating pseudo-random values.
 
 ```ts
 prng.setMethod(method: PRNGMethod) => void;
 ```
+
+##### random
 
 Generate a pseudo-random number in the interval [0, 1] (PRNG equivalent of Math.random).
 
@@ -69,11 +79,15 @@ Generate a pseudo-random number in the interval [0, 1] (PRNG equivalent of Math.
 prng.random(seed: string) => number;
 ```
 
+##### randomBoolean
+
 Generate a pseudo-random boolean (true or false).
 
 ```ts
 prng.randomBoolean(seed: string, probability?: number) => boolean;
 ```
+
+##### randomSign
 
 Generate a pseudo-random sign (1 or -1).
 
@@ -81,17 +95,23 @@ Generate a pseudo-random sign (1 or -1).
 prng.randomSign(seed: string, probability?: number) => number;
 ```
 
-Generate pseudo-random floating-point numbers within a specified range.
+##### randomFloat
+
+Generate pseudo-random a floating-point number within a specified range.
 
 ```ts
 prng.randomFloat(seed: string, min?: number, max?: number1, precision?: number) => number;
 ```
 
-Generate pseudo-random integer numbers within a specified range.
+##### randomInt
+
+Generate pseudo-random integer number within a specified range.
 
 ```ts
 prng.randomInt(seed: string, min: number, max: number) => void;
 ```
+
+##### randomHexColor
 
 Generate a pseudo-random hexadecimal color.
 
@@ -99,17 +119,23 @@ Generate a pseudo-random hexadecimal color.
 prng.randomHexColor(seed: string) => string;
 ```
 
+##### randomItem
+
 Pick a pseudo-random item from a given array.
 
 ```ts
 prng.randomItem<T>(seed: string, array: T[]) => T | undefined;
 ```
 
+##### randomObjectProperty
+
 Pick a pseudo-random property value from a given object.
 
 ```ts
 prng.randomObjectProperty(seed: string, object: object) => unknown | undefined
 ```
+
+##### randomIndex
 
 Select a pseudo-random index from an array of weighted items.
 
