@@ -18,4 +18,4 @@ export {
 } from './controllers';
 export type { PRNGController, PRNGGroupController } from './controllers';
 
-export { default, PRNGMethod } from './prng';
+export { default, Algorithm } from './prng';

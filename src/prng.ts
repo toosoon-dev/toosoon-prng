@@ -1,10 +1,11 @@
 import { PRNGController } from './controllers';
-import { cyrb128, jsf32, mulberry32, sfc32, xoshiro128ss } from './utils';
+import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from './utils';
 
-export enum PRNGMethod {
+export enum Algorithm {
   jsf32 = 'jsf32',
   mulberry32 = 'mulberry32',
   sfc32 = 'sfc32',
+  splitmix32 = 'splitmix32', // Default
   xoshiro128ss = 'xoshiro128**'
 }
 
@@ -15,7 +16,7 @@ export enum PRNGMethod {
  */
 class PRNG {
   public seed: string = '';
-  public method: PRNGMethod = PRNGMethod.sfc32;
+  public algorithm: Algorithm = Algorithm.splitmix32;
   public controllers: PRNGController[] = [];
 
   /**
@@ -49,12 +50,13 @@ class PRNG {
   }
 
   /**
-   * Set the PRNG method for generating pseudo-random values
+   * Set this PRNG algorithm for generating pseudo-random values
    *
-   * @param {PRNGMethod} method PRNG method name
+   * @param {Algorithm} algorithm Algorithm name
    */
-  public setMethod(method: PRNGMethod): void {
-    this.method = method;
+  public setAlgorithm(algorithm: Algorithm): void {
+    this.algorithm = algorithm;
+    this.controllers.forEach((controller) => controller.getValue());
   }
 
   /**
@@ -66,14 +68,16 @@ class PRNG {
    */
   public random(seed: string): number {
     const hashes = cyrb128(this.seed + seed);
-    switch (this.method) {
-      case PRNGMethod.jsf32:
+    switch (this.algorithm) {
+      case Algorithm.splitmix32:
+        return splitmix32(hashes[0]);
+      case Algorithm.jsf32:
         return jsf32(hashes[0], hashes[1], hashes[2], hashes[3]);
-      case PRNGMethod.mulberry32:
+      case Algorithm.mulberry32:
         return mulberry32(hashes[0]);
-      case PRNGMethod.sfc32:
+      case Algorithm.sfc32:
         return sfc32(hashes[0], hashes[1], hashes[2], hashes[3]);
-      case PRNGMethod.xoshiro128ss:
+      case Algorithm.xoshiro128ss:
         return xoshiro128ss(hashes[0], hashes[1], hashes[2], hashes[3]);
     }
   }

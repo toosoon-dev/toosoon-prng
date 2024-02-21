@@ -26,9 +26,9 @@ export function cyrb128(seed: string): number[] {
   return [(h1 ^ h2 ^ h3 ^ h4) >>> 0, (h2 ^ h1) >>> 0, (h3 ^ h1) >>> 0, (h4 ^ h1) >>> 0];
 }
 
-// ******************************************
-// Pseudo-random Number Generator
-// ******************************************
+// *********************
+// Algorithms
+// *********************
 
 /**
  * Simple Fast Counter, Generator with a 128-bit state
@@ -37,7 +37,7 @@ export function cyrb128(seed: string): number[] {
  * @param {number} b
  * @param {number} c
  * @param {number} d
- * @return {Function}
+ * @return {number}
  */
 export function sfc32(a: number, b: number, c: number, d: number): number {
   a >>>= 0;
@@ -55,10 +55,26 @@ export function sfc32(a: number, b: number, c: number, d: number): number {
 }
 
 /**
+ * SplitMix32, Generator with a 32-bit state
+ *
+ * @param {number} a
+ * @returns {number}
+ */
+export function splitmix32(a: number): number {
+  a |= 0;
+  a = (a + 0x9e3779b9) | 0;
+  var t = a ^ (a >>> 16);
+  t = Math.imul(t, 0x21f0aaad);
+  t = t ^ (t >>> 15);
+  t = Math.imul(t, 0x735a2d97);
+  return ((t = t ^ (t >>> 15)) >>> 0) / 4294967296;
+}
+
+/**
  * Mulberry32, Generator with a 32-bit state
  *
  * @param {number} a
- * @return {Function}
+ * @return {number}
  */
 export function mulberry32(a: number): number {
   let t = (a += 0x6d2b79f5);
@@ -71,7 +87,7 @@ export function mulberry32(a: number): number {
  * Jenkins' Small Fast, Generator with a 32-bit state
  *
  * @param {number} a
- * @return {Function}
+ * @returns {number}
  */
 export function jsf32(a: number, b: number, c: number, d: number): number {
   a |= 0;
@@ -90,7 +106,7 @@ export function jsf32(a: number, b: number, c: number, d: number): number {
  * xoshiro128**, Generator with a 128-bit state
  *
  * @param {number} a
- * @return {Function}
+ * @returns {number}
  */
 export function xoshiro128ss(a: number, b: number, c: number, d: number): number {
   let t = b << 9;

@@ -25,8 +25,6 @@ $ npm install toosoon-prng
 ##### setSeed
 
 ```ts
-##### randomFloat
-
 import prng from 'toosoon-prng';
 
 prng.setSeed('seed');
@@ -73,14 +71,14 @@ Set the `PRNG` instance seed.
 prng.setSeed(seed: string) => void;
 ```
 
-##### setMethod(method)
+##### setAlgorithm(algorithm)
 
-Set the `PRNG` instance method for generating pseudo-random values.
+Set the `PRNG` algorithm for generating pseudo-random values.
 
-- `method`: PRNG method name.
+- `algorithm`: Algorithm name.
 
 ```ts
-prng.setMethod(method: PRNGMethod) => void;
+prng.setAlgorithm(algorithm: Algorithm) => void;
 ```
 
 ##### random(seed)
@@ -313,6 +311,24 @@ Manage multiple [`WeightsController`](#weightscontroller).
 
 ```ts
 class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+```
+
+## Algorithms
+
+By default, the library is using `SplitMix32` algorithm for generating the pseudo-random values but it is possible to change the algorithm used by one of the following:
+
+- `jsf32`: Jenkins' Small Fast, Generator with a 32-bit state.
+- `mulberry32`: Mulberry32, Generator with a 32-bit state.
+- `sfc32`: Simple Fast Counter, Generator with a 128-bit state.
+- `splitmix32`: SplitMix32, Generator with a 32-bit state.
+- `xoshiro128ss`: xoshiro128\*\*, Generator with a 128-bit state.
+
+**Credits**: [Seeding random number generator in Javascript](https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript)
+
+```ts
+import prng, { Algorithm } from 'toosoon-prng';
+
+prng.setAlgorithm(Algorithm.sfc32);
 ```
 
 ## License
