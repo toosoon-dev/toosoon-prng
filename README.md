@@ -1,8 +1,6 @@
-# TOOSOON PRNG (Pseudo-Random Number Generator)
+# TOOSOON Pseudo-Random Number Generator (PRNG)
 
-TOOSOON pseudo-random number generator utility functions & controllers.
-
-This project provides a `prng` instance and a set of `Controllers` for generating pseudo-random values using a seed-based approach and various algorithms. These controllers are particularly useful for applications requiring deterministic randomization, such as procedural generation or simulations.
+This project provides a `PRNG` instance and a set of `Controllers` for generating pseudo-random values using a seed-based approach and various algorithms. These controllers are particularly useful for applications requiring deterministic randomization, such as procedural generation or simulations.
 
 ## Installation
 
@@ -21,8 +19,6 @@ $ npm install toosoon-prng
 ## Usage
 
 ##### PRNG
-
-##### setSeed
 
 ```ts
 import prng from 'toosoon-prng';
