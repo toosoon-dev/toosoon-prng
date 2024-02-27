@@ -64,7 +64,7 @@ Set the `PRNG` instance seed.
 - `seed`
 
 ```ts
-prng.setSeed(seed: string) => void;
+prng.setSeed(seed: string): void;
 ```
 
 ##### setAlgorithm(algorithm)
@@ -74,7 +74,7 @@ Set the `PRNG` algorithm for generating pseudo-random values.
 - `algorithm`: Algorithm name.
 
 ```ts
-prng.setAlgorithm(algorithm: Algorithm) => void;
+prng.setAlgorithm(algorithm: Algorithm): void;
 ```
 
 ##### random(seed)
@@ -84,7 +84,7 @@ Generate a pseudo-random number in the interval [0, 1]. PRNG equivalent of `Math
 - `seed`
 
 ```ts
-prng.random(seed: string) => number;
+prng.random(seed: string): number;
 ```
 
 ##### randomBoolean(seed)
@@ -95,7 +95,7 @@ Generate a pseudo-random boolean (true or false).
 - `[probability=0.5]`: Probability to get `true`.
 
 ```ts
-prng.randomBoolean(seed: string, probability?: number) => boolean;
+prng.randomBoolean(seed: string, probability?: number): boolean;
 ```
 
 ##### randomSign(seed)
@@ -106,7 +106,7 @@ Generate a pseudo-random sign (1 or -1).
 - `[probability=0.5]`: Probability to get 1.
 
 ```ts
-prng.randomSign(seed: string, probability?: number) => number;
+prng.randomSign(seed: string, probability?: number): number;
 ```
 
 ##### randomFloat(seed, min, max)
@@ -119,7 +119,7 @@ Generate pseudo-random a floating-point number within a specified range.
 - `[precison=2]`: Number of digits after the decimal point.
 
 ```ts
-prng.randomFloat(seed: string, min?: number, max?: number1, precision?: number) => number;
+prng.randomFloat(seed: string, min?: number, max?: number1, precision?: number): number;
 ```
 
 ##### randomInt(seed, min, max)
@@ -131,7 +131,7 @@ Generate pseudo-random integer number within a specified range.
 - `max`: Maximum boundary.
 
 ```ts
-prng.randomInt(seed: string, min: number, max: number) => void;
+prng.randomInt(seed: string, min: number, max: number): void;
 ```
 
 ##### randomHexColor(seed)
@@ -141,7 +141,7 @@ Generate a pseudo-random hexadecimal color.
 - `seed`
 
 ```ts
-prng.randomHexColor(seed: string) => string;
+prng.randomHexColor(seed: string): string;
 ```
 
 ##### randomItem(seed0 array)
@@ -152,7 +152,7 @@ Pick a pseudo-random item from a given array.
 - `array`: Array to pick the item from.
 
 ```ts
-prng.randomItem<T>(seed: string, array: T[]) => T | undefined;
+prng.randomItem<T>(seed: string, array: T[]): T | undefined;
 ```
 
 ##### randomObjectProperty(seed, object)
@@ -163,7 +163,7 @@ Pick a pseudo-random property value from a given object.
 - `object`: Object to pick the property from.
 
 ```ts
-prng.randomObjectProperty<T>(seed: string, object: object) => T | undefined;
+prng.randomObjectProperty<T>(seed: string, object: object): T | undefined;
 ```
 
 ##### randomIndex(seed, weights)
@@ -174,7 +174,7 @@ Select a pseudo-random index from an array of weighted items.
 - `weights`: Array of weights
 
 ```ts
-prng.randomIndex(seed: string, weights: number[]) => number;
+prng.randomIndex(seed: string, weights: number[]): number;
 ```
 
 ## Controllers
