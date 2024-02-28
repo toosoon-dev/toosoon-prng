@@ -1,7 +1,7 @@
 {
   "name": "toosoon-prng",
   "version": "1.2.1",
-  "description": "Pseudo-random number generator utility functions & controllers",
+  "description": "This project provides a `PRNG` instance and a set of `Controllers` for generating pseudo-random values using a seed-based approach and various algorithms",
   "main": "./lib/index.js",
   "scripts": {
     "build": "npx tsc",
