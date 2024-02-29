@@ -17,6 +17,6 @@ export {
   WeightsGroupController
 } from './controllers';
 
-export { default, Algorithm } from './prng';
+export { default } from './prng';
 
 export type * from './types';

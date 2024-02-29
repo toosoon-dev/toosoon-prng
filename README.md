@@ -311,19 +311,18 @@ class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; val
 
 ## Algorithms
 
-By default, the library is using `SplitMix32` algorithm for generating the pseudo-random values but it is possible to change the algorithm used by one of the following:
+By default, the library is using _SplitMix32_ algorithm for generating the pseudo-random values but it is possible to change the algorithm used by one of the following:
 
-- `jsf32`: Jenkins' Small Fast, Generator with a 32-bit state.
-- `mulberry32`: Mulberry32, Generator with a 32-bit state.
-- `sfc32`: Simple Fast Counter, Generator with a 128-bit state.
-- `splitmix32`: SplitMix32, Generator with a 32-bit state.
-- `xoshiro128ss`: xoshiro128\*\*, Generator with a 128-bit state.
-
-**Credits**: [Seeding random number generator in Javascript](https://stackoverflow.com/questions/521295/seeding-the-random-number-generator-in-javascript)
+- `jsf32`: _Jenkins' Small Fast_, Generator with a 32-bit state.
+- `mulberry32`: _Mulberry32_, Generator with a 32-bit state.
+- `sfc32`: _Simple Fast Counter_, Generator with a 128-bit state.
+- `splitmix32`: _SplitMix32_, Generator with a 32-bit state.
+- `xoshiro128ss`: _xoshiro128\*\*_, Generator with a 128-bit state.
 
 ```ts
 import prng, { Algorithm } from 'toosoon-prng';
 
+// Set 'Simple Fast Counter' as PRNG instance algorithm
 prng.setAlgorithm(Algorithm.sfc32);
 ```
 
