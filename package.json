@@ -1,7 +1,7 @@
 {
   "name": "toosoon-prng",
   "version": "1.4.0",
-  "description": "This project provides a `PRNG` instance and a set of `Controllers` for generating pseudo-random values using a seed-based approach and various algorithms",
+  "description": "This project provides a PRNG instance and a set of Controllers for generating pseudo-random values using a seed-based approach and various algorithms",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {

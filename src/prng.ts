@@ -4,7 +4,7 @@ import { PRNGController } from './controllers';
 import { Algorithm } from './types';
 
 /**
- * PRNG class
+ * Utility class for generating pseudo-random values
  *
  * @class PRNG
  */
