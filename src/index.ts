@@ -16,6 +16,7 @@ export {
   ObjectPropertyGroupController,
   WeightsGroupController
 } from './controllers';
-export type { PRNGController, PRNGGroupController } from './controllers';
 
 export { default, Algorithm } from './prng';
+
+export type * from './types';
