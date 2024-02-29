@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "This project provides a `PRNG` instance and a set of `Controllers` for generating pseudo-random values using a seed-based approach and various algorithms",
   "main": "./lib/index.js",
   "types": "./lib/types.d.ts",
@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
   "dependencies": {
-    "toosoon-gui": "^1.2.1"
+    "toosoon-gui": "^1.2.2"
   },
   "devDependencies": {
     "typescript": "^5.3.3"

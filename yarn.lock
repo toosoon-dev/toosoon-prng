@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-toosoon-gui@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/toosoon-gui/-/toosoon-gui-1.2.1.tgz#f34fba13238e2daa6b3a5aa7c9b729adfd4a2a7d"
-  integrity sha512-1yGcyiraJVZNx9mfBjQQemQ6PdjobeJoihFOrb6va+bHLxHz0QtnynsLvsbWJZ56Wr0mx985QuLOO+QQ+kDfow==
+toosoon-gui@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/toosoon-gui/-/toosoon-gui-1.2.2.tgz#eccb570ccb9a9dc63145d46a6faab1471d89fe2b"
+  integrity sha512-ayXDqNw8ieX+L8AKfA6PJMYepZkTWp1650z6Oy9q0E4FMfzJrI7JPaMwjX4MMbbzki5VVd3+4dodzPZT+dbOuQ==
   dependencies:
     toosoon-utils "^1.2.0"
 
