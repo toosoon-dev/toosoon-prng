@@ -1,4 +1,4 @@
-import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from 'toosoon-utils/prng';
+import { jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss, random } from 'toosoon-utils/prng';
 
 import { PRNGController } from './controllers';
 import { Algorithm } from './types';
@@ -10,7 +10,7 @@ import { Algorithm } from './types';
  */
 class PRNG {
   public seed: string = '';
-  public algorithm: Algorithm = Algorithm.splitmix32;
+  public algorithm: (...args: number[]) => number = splitmix32;
   public controllers: PRNGController[] = [];
 
   /**
@@ -49,7 +49,7 @@ class PRNG {
    * @param {Algorithm} algorithm Algorithm name
    */
   public setAlgorithm(algorithm: Algorithm): void {
-    this.algorithm = algorithm;
+    this.algorithm = this.getAlgorithm(algorithm);
     this.controllers.forEach((controller) => controller.getValue());
   }
 
@@ -61,19 +61,7 @@ class PRNG {
    * @returns {number}
    */
   public random(seed: string): number {
-    const hashes = cyrb128(this.seed + seed);
-    switch (this.algorithm) {
-      case Algorithm.splitmix32:
-        return splitmix32(hashes[0]);
-      case Algorithm.jsf32:
-        return jsf32(hashes[0], hashes[1], hashes[2], hashes[3]);
-      case Algorithm.mulberry32:
-        return mulberry32(hashes[0]);
-      case Algorithm.sfc32:
-        return sfc32(hashes[0], hashes[1], hashes[2], hashes[3]);
-      case Algorithm.xoshiro128ss:
-        return xoshiro128ss(hashes[0], hashes[1], hashes[2], hashes[3]);
-    }
+    return random({ seed: this.seed + seed, algorithm: this.algorithm });
   }
 
   /**
@@ -152,7 +140,7 @@ class PRNG {
    * @param {object} object Object to pick the property from
    * @returns {T|undefined} Random item picked
    */
-  public randomObjectProperty<T = unknown>(seed: string, object: { [key: string]: T }): T | undefined {
+  public randomObjectProperty<T = unknown>(seed: string, object: Record<string, T>): T | undefined {
     const keys = Object.keys(object);
     const key = this.randomItem(seed, keys);
     if (key && object.hasOwnProperty(key)) {
@@ -177,13 +165,34 @@ class PRNG {
 
     if (totalWeight <= 0) console.warn('PRNG.randomIndex()', 'Weights must sum to > 0', totalWeight);
 
-    let random = this.random(seed) * totalWeight;
+    let weight = this.random(seed) * totalWeight;
     for (let i = 0; i < weights.length; i++) {
-      if (random < weights[i]) return i;
-      random -= weights[i];
+      if (weight < weights[i]) return i;
+      weight -= weights[i];
     }
 
     return 0;
+  }
+
+  /**
+   * Get the PRNG algorithm function by its name
+   *
+   * @param {Algorithm} algorithm Algorithm name
+   * @returns {Function} PRNG algorithm function
+   */
+  private getAlgorithm(algorithm: Algorithm): (...args: number[]) => number {
+    switch (algorithm) {
+      case Algorithm.splitmix32:
+        return splitmix32;
+      case Algorithm.jsf32:
+        return jsf32;
+      case Algorithm.mulberry32:
+        return mulberry32;
+      case Algorithm.sfc32:
+        return sfc32;
+      case Algorithm.xoshiro128ss:
+        return xoshiro128ss;
+    }
   }
 }
 

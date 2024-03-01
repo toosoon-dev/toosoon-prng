@@ -229,9 +229,9 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
 
 export class ObjectPropertyController<T = unknown> extends BasePRNGController<T> {
   value: T;
-  object: { [key: string]: T };
+  object: Record<string, T>;
 
-  constructor(seed: string, object: { [key: string]: T }) {
+  constructor(seed: string, object: Record<string, T>) {
     super(seed);
 
     this.object = object;
@@ -379,10 +379,10 @@ export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T>
 }
 
 export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupController<T> {
-  object: { [key: string]: T };
+  object: Record<string, T>;
   controllers: ObjectPropertyController<T>[] = [];
 
-  constructor(seed: string, object: { [key: string]: T }) {
+  constructor(seed: string, object: Record<string, T>) {
     super(seed);
 
     this.object = object;

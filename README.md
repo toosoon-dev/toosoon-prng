@@ -163,7 +163,7 @@ Pick a pseudo-random property value from a given object.
 - `object`: Object to pick the property from.
 
 ```ts
-prng.randomObjectProperty<T>(seed: string, object: object): T | undefined;
+prng.randomObjectProperty<T>(seed: string, object: Record<string, T>): T | undefined;
 ```
 
 ##### randomIndex(seed, weights)
@@ -230,7 +230,7 @@ class ItemController<T>(seed: string, items: T[]);
 Pick a pseudo-random property value from a given object.
 
 ```ts
-class ObjectPropertyController<T>(seed: string, object: object);
+class ObjectPropertyController<T>(seed: string, object: Record<string, T>);
 ```
 
 ### WeightsController
