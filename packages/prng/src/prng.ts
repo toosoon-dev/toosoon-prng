@@ -1,36 +1,15 @@
-import { jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss, random } from 'toosoon-utils/prng';
-
-import { PRNGController } from './controllers';
-import { Algorithm } from './types';
+import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from './utils';
+import { AlgorithmName } from './types';
 
 /**
  * Utility class for generating pseudo-random values
  *
  * @class PRNG
+ * @exports
  */
-class PRNG {
+export class PRNG {
   public seed: string = '';
   public algorithm: (...args: number[]) => number = splitmix32;
-  public controllers: PRNGController[] = [];
-
-  /**
-   * Add a controller to this PRNG
-   *
-   * @param {PRNGController} controller
-   */
-  public addController(controller: PRNGController): void {
-    this.controllers.push(controller);
-  }
-
-  /**
-   * Remove a controller from this PRNG
-   *
-   * @param {PRNGController} controller
-   */
-  public removeController(controller: PRNGController): void {
-    const index = this.controllers.indexOf(controller);
-    this.controllers.splice(index, 1);
-  }
 
   /**
    * Set this PRNG seed
@@ -38,19 +17,16 @@ class PRNG {
    * @param {string} seed
    */
   public setSeed(seed: string): void {
-    if (this.seed === seed) return;
     this.seed = seed;
-    this.controllers.forEach((controller) => controller.getValue());
   }
 
   /**
-   * Set this PRNG algorithm for generating pseudo-random values
+   * Set this PRNG algorithm
    *
-   * @param {Algorithm} algorithm Algorithm name
+   * @param {AlgorithmName} algorithmName Algorithm name
    */
-  public setAlgorithm(algorithm: Algorithm): void {
-    this.algorithm = this.getAlgorithm(algorithm);
-    this.controllers.forEach((controller) => controller.getValue());
+  public setAlgorithm(algorithmName: AlgorithmName): void {
+    this.algorithm = this.getAlgorithmByName(algorithmName);
   }
 
   /**
@@ -61,7 +37,8 @@ class PRNG {
    * @returns {number}
    */
   public random(seed: string): number {
-    return random({ seed: this.seed + seed, algorithm: this.algorithm });
+    const hashes = cyrb128(this.seed + seed);
+    return this.algorithm(...hashes);
   }
 
   /**
@@ -177,21 +154,23 @@ class PRNG {
   /**
    * Get the PRNG algorithm function by its name
    *
-   * @param {Algorithm} algorithm Algorithm name
+   * @param {AlgorithmName} algorithmName Algorithm name
    * @returns {Function} PRNG algorithm function
    */
-  private getAlgorithm(algorithm: Algorithm): (...args: number[]) => number {
-    switch (algorithm) {
-      case Algorithm.splitmix32:
-        return splitmix32;
-      case Algorithm.jsf32:
+  protected getAlgorithmByName(algorithmName: AlgorithmName): (...args: number[]) => number {
+    switch (algorithmName) {
+      case AlgorithmName.jsf32:
         return jsf32;
-      case Algorithm.mulberry32:
+      case AlgorithmName.mulberry32:
         return mulberry32;
-      case Algorithm.sfc32:
+      case AlgorithmName.sfc32:
         return sfc32;
-      case Algorithm.xoshiro128ss:
+      case AlgorithmName.splitmix32:
+        return splitmix32;
+      case AlgorithmName.xoshiro128ss:
         return xoshiro128ss;
+      default:
+        return splitmix32;
     }
   }
 }

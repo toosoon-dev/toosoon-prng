@@ -1,0 +1,33 @@
+{
+  "name": "toosoon-prng",
+  "version": "2.2.0",
+  "description": "This project provides PRNG functions for generating pseudo-random values using a seed-based approach and various algorithms",
+  "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
+  "scripts": {
+    "build": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/toosoon-dev/toosoon-prng.git"
+  },
+  "keywords": [
+    "toosoon",
+    "prng",
+    "pseudo-random",
+    "random",
+    "randomization",
+    "procedural",
+    "generative"
+  ],
+  "author": "Arnaud Rocca",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/toosoon-dev/toosoon-prng/issues"
+  },
+  "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
+  "devDependencies": {
+    "typescript": "^5.4.2"
+  }
+}
