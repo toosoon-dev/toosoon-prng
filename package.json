@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "This project provides PRNG functions for generating pseudo-random values using a seed-based approach and various algorithms",
   "type": "module",
   "engines": {
@@ -31,7 +31,7 @@
     "url": "https://github.com/toosoon-dev/toosoon-prng/issues"
   },
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
-  "peerDependencies": {
-    "typescript": "5.x"
+  "devDependencies": {
+    "typescript": "^5.4.2"
   }
 }
