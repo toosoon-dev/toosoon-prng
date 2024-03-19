@@ -2,22 +2,22 @@
 # yarn lockfile v1
 
 
-toosoon-gui@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/toosoon-gui/-/toosoon-gui-2.3.0.tgz#c0d6b0b217e53b44e85af48b624fbad660d1f704"
-  integrity sha512-s6Xwab5jRZq2YMIJ8f8zZt6hr0Y0VqciYgLPjO/uPrmGOFrFBb+LIEkwrzP7sgWuOKbnF9+BUuZPcQec0IP5uQ==
+toosoon-gui@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/toosoon-gui/-/toosoon-gui-3.0.0.tgz#de0631e8eb2761e74e8d9758e8ac60fb3443e708"
+  integrity sha512-o6XBjO+i2ZaYE10Vyp2n7t/QqNdZ6HkpY55tnEv530WWftItdYIx7K/s7cBTWC7qS/By/cadqBSq+YYSDdp1Xw==
   dependencies:
-    toosoon-utils "^2.3.0"
+    toosoon-utils "^3.0.0"
 
-toosoon-prng@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-2.5.0.tgz#0678f6c5c6835604e1403b0256447790492b4fb2"
-  integrity sha512-y97Q/Sa/iv8P+fMubFFVttczDV50P1FcUzevvRPAVgSJ3f13le9JmkZQsa02k0LpMeQ/ifcU9yOKm8cfiXAsOA==
+toosoon-prng@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-3.0.0.tgz#fc6456b115d4a7e6ed55f8ebbb2aa25c1c59cd79"
+  integrity sha512-hHe89BR8xFDZuhPeUZOKxAwkZATUrGuf1KSdaJ9KfGQf4fJvxaV2N49XnKgj3jaJCqzoEOjy5JArlkvewKptOQ==
 
-toosoon-utils@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-2.3.0.tgz#3744b78154483fb79cb055488b81071b72d68dc6"
-  integrity sha512-lXS1Cy4HivbWv40cO1hqHvV2HiEE50eIkypLdRqjStKTvV/MuktBX8NDmkPDp528nWFvDx2csmdqhCUuXCSHig==
+toosoon-utils@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.0.0.tgz#7024e20cce9e3d823dfce8c2403969e654866f5d"
+  integrity sha512-uoQUcHHc2iGhKB/2Psm6BskKHcbpJZgDmUJwcrZ26pLUV5gV0voiqXCrLdIF9WBANxw+i9BGKicMxHq/0BGUSQ==
 
 typescript@^5.4.2:
   version "5.4.2"
