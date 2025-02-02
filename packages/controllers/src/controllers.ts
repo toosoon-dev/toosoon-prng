@@ -407,3 +407,28 @@ export class WeightsGroupController<T = unknown> extends BasePRNGGroupController
     return new WeightsController<T>(`${this.seed}-${index}`, this.items);
   }
 }
+
+export class GaussianController extends BasePRNGController<number> {
+  value: number;
+  mean: number;
+  spread: number;
+
+  constructor(seed: string, mean: number = 0, spread = 1) {
+    super(seed);
+
+    this.mean = mean;
+    this.spread = spread;
+    this.value = this.getValue();
+  }
+
+  addGUI(gui: Gui) {
+    this.gui = gui.add(this, 'value', this.mean - this.spread, this.mean + this.spread).name(this.seed);
+    return this.gui;
+  }
+
+  getValue() {
+    this.value = prng.randomGaussian(this.seed, this.mean, this.spread);
+    this.gui?.updateDisplay();
+    return this.value;
+  }
+}

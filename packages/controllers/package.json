@@ -32,7 +32,7 @@
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
   "dependencies": {
     "toosoon-gui": "^3.0.0",
-    "toosoon-prng": "^3.0.0"
+    "toosoon-prng": "^3.0.1"
   },
   "devDependencies": {
     "typescript": "^5.4.2"
