@@ -1,4 +1,4 @@
-import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from './utils';
+import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from 'toosoon-utils/prng';
 import { AlgorithmName } from './types';
 
 /**
@@ -149,6 +149,14 @@ export class PRNG {
     }
 
     return 0;
+  }
+
+  public randomGaussian(seed: string, mean: number = 0, spread: number = 1): number {
+    const hashes = cyrb128(this.seed + seed);
+    const u = this.algorithm(...hashes);
+    const v = this.algorithm(...hashes.reverse());
+    const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+    return mean + z * spread;
   }
 
   /**

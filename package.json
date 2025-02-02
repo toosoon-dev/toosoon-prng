@@ -30,6 +30,9 @@
     "url": "https://github.com/toosoon-dev/toosoon-prng/issues"
   },
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
+  "dependencies": {
+    "toosoon-utils": "^3.0.3"
+  },
   "devDependencies": {
     "typescript": "^5.4.2"
   }

@@ -155,6 +155,18 @@ Select a pseudo-random index from an array of weighted items.
 prng.randomIndex(seed: string, weights: number[]): number;
 ```
 
+##### randomGaussian(seed, mean, spread)
+
+Generate a pseudo-random number fitting a Gaussian (normal) distribution.
+
+`seed`
+`[mean=0]`: Central value.
+`[spread=1]`: Standard deviation.
+
+```ts
+prng.randomGaussian(seed: string, mean?: number, spread?: number): number;
+```
+
 ## Algorithms
 
 By default, the library is using _SplitMix32_ algorithm for generating the pseudo-random values but it is possible to change the algorithm used by one of the following:
