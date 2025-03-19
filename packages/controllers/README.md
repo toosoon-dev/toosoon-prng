@@ -63,6 +63,8 @@ class FloatController(seed: string, min?: number, max?: number);
 
 ### IntController
 
+Generate pseudo-random integer number within a specified range.
+
 ```ts
 class IntController(seed: string, min: number, max: number);
 ```
@@ -97,6 +99,14 @@ Select a pseudo-random index from an array of weighted items.
 
 ```ts
 class WeightsController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+```
+
+### GaussianController
+
+Generate a pseudo-random number fitting a Gaussian (normal) distribution.
+
+```ts
+class GaussianController(seed: string, mean?: number, spread?: number);
 ```
 
 ## Group Controllers
@@ -165,6 +175,14 @@ Manage multiple [`WeightsController`](#weightscontroller).
 
 ```ts
 class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+```
+
+### GaussianGroupController
+
+Manage multiple [`GaussianController`](#gaussiancontroller).
+
+```ts
+class GaussianGroupController<T>(seed: string, mean?: number, spread?: number);
 ```
 
 ## License

@@ -151,6 +151,14 @@ export class PRNG {
     return 0;
   }
 
+  /**
+   * Generate a pseudo-random number fitting a Gaussian (normal) distribution
+   *
+   * @param {string} seed
+   * @param {number} [mean=0]   Central value
+   * @param {number} [spread=1] Standard deviation
+   * @returns Generated number
+   */
   public randomGaussian(seed: string, mean: number = 0, spread: number = 1): number {
     const hashes = cyrb128(this.seed + seed);
     const u = this.algorithm(...hashes);

@@ -1,13 +1,15 @@
-import { AlgorithmName, PRNG as _PRNG } from 'toosoon-prng';
+import { AlgorithmName, PRNG as BasePRNG } from 'toosoon-prng';
 
 import { PRNGController } from './controllers';
 
 /**
  * Utility class for generating pseudo-random values and managing PRNG Controllers
  *
+ * @exports
  * @class PRNG
+ * @extends BasePRNG
  */
-export class PRNG extends _PRNG {
+export class PRNG extends BasePRNG {
   public controllers: PRNGController[] = [];
 
   /**

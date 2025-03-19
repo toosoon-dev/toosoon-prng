@@ -9,22 +9,22 @@ toosoon-gui@^3.0.0:
   dependencies:
     toosoon-utils "^3.0.0"
 
-toosoon-prng@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-3.0.1.tgz#66e43473e9fe0702ae0ea7aff1007efb92ea07de"
-  integrity sha512-UNvM71tNioN1dWC3iJsy2MPS6RIzGt/QBN+W0TEGDe5x2pVyh50qyWMhJzeMFjHs2TUdZoJ65z9j6uzg31vaMw==
+toosoon-prng@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-3.1.0.tgz#96fa3b3760e1015e8155dc54e98e571567241333"
+  integrity sha512-KY1kEOBzb9bq9GuzDAWHB9TDQ/UpTqA2l3+b5mjirtZu5/4avxvBkimTGgped6Oc0n4rFz/Z+yNj4n8U/hVp5g==
   dependencies:
-    toosoon-utils "^3.0.3"
+    toosoon-utils "^3.1.0"
 
 toosoon-utils@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.0.0.tgz#7024e20cce9e3d823dfce8c2403969e654866f5d"
   integrity sha512-uoQUcHHc2iGhKB/2Psm6BskKHcbpJZgDmUJwcrZ26pLUV5gV0voiqXCrLdIF9WBANxw+i9BGKicMxHq/0BGUSQ==
 
-toosoon-utils@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.0.3.tgz#064f45688d8edea9b48bdd69f5c811ba33480e7c"
-  integrity sha512-WnK3NPL4etBA3jaFRPwnC0g80fpdeKrvy3tmv4Gy58LvMxdaKV1Z38LVJOEWo2bFfYmnaCZhev3U3R9S1VhI3Q==
+toosoon-utils@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.1.0.tgz#a1524dc450ed87c02be45e0ac454484c7e0d607e"
+  integrity sha512-H9cDNzbPxACqwrfuIzuVao/lXtIH/Lhzhqe/FN2mpGSl5ArtU8CrIb+yxkxbtfxc5xAXyykP1q335S0Scr4Rpg==
 
 typescript@^5.4.2:
   version "5.4.2"

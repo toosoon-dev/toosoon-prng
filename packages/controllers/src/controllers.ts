@@ -18,9 +18,13 @@ export interface PRNGGroupController<T = unknown> {
   dispose(): void;
 }
 
-// *********************
-// Abstract controllers
-// *********************
+/**
+ * Utility abstract class for generating pseudo-random values
+ *
+ * @class BasePRNGController
+ * @implements PRNGController
+ * @abstract
+ */
 abstract class BasePRNGController<T> implements PRNGController<T> {
   seed: string;
   abstract value: T;
@@ -41,6 +45,13 @@ abstract class BasePRNGController<T> implements PRNGController<T> {
   }
 }
 
+/**
+ * Utility abstract class for managing multiple instances of individual controllers
+ *
+ * @class BasePRNGGroupController
+ * @implements PRNGGroupController
+ * @abstract
+ */
 abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
   seed: string;
   controllers: PRNGController<T>[] = [];
@@ -87,6 +98,14 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
 // *********************
 // Controllers
 // *********************
+
+/**
+ * Utility class for generating pseudo-random boolean value
+ *
+ * @exports
+ * @class BooleanController
+ * @extends BasePRNGController
+ */
 export class BooleanController extends BasePRNGController<boolean> {
   value: boolean;
   probability: number;
@@ -110,6 +129,13 @@ export class BooleanController extends BasePRNGController<boolean> {
   }
 }
 
+/**
+ * Utility class for generating pseudo-random sign value (-1 or 1)
+ *
+ * @exports
+ * @class SignController
+ * @extends BasePRNGController
+ */
 export class SignController extends BasePRNGController<number> {
   value: number;
   probability: number;
@@ -133,6 +159,13 @@ export class SignController extends BasePRNGController<number> {
   }
 }
 
+/**
+ * Utility class for generating pseudo-random floating-point number within a specified range
+ *
+ * @exports
+ * @class FloatController
+ * @extends BasePRNGController
+ */
 export class FloatController extends BasePRNGController<number> {
   value: number;
   min: number;
@@ -158,6 +191,13 @@ export class FloatController extends BasePRNGController<number> {
   }
 }
 
+/**
+ * Utility class for generating pseudo-random integer number within a specified range
+ *
+ * @exports
+ * @class IntController
+ * @extends BasePRNGController
+ */
 export class IntController extends BasePRNGController<number> {
   value: number;
   min: number;
@@ -183,6 +223,13 @@ export class IntController extends BasePRNGController<number> {
   }
 }
 
+/**
+ * Utility class for generating pseudo-random hexadecimal color
+ *
+ * @exports
+ * @class HexColorController
+ * @extends BasePRNGController
+ */
 export class HexColorController extends BasePRNGController<string> {
   value: string;
 
@@ -204,6 +251,13 @@ export class HexColorController extends BasePRNGController<string> {
   }
 }
 
+/**
+ * Utility class for picking a pseudo-random item from a given array
+ *
+ * @exports
+ * @class ItemController
+ * @extends BasePRNGController
+ */
 export class ItemController<T = unknown> extends BasePRNGController<T> {
   value: T;
   items: T[];
@@ -227,6 +281,13 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
   }
 }
 
+/**
+ * Utility class for picking a pseudo-random property value from a given object
+ *
+ * @exports
+ * @class ObjectPropertyController
+ * @extends BasePRNGController
+ */
 export class ObjectPropertyController<T = unknown> extends BasePRNGController<T> {
   value: T;
   object: Record<string, T>;
@@ -252,6 +313,13 @@ export class ObjectPropertyController<T = unknown> extends BasePRNGController<T>
 
 type WeightsItems<T> = Array<{ weight: number; value: T }>;
 
+/**
+ * Utility class for selecting a pseudo-random index from an array of weighted items
+ *
+ * @exports
+ * @class WeightsController
+ * @extends BasePRNGController
+ */
 export class WeightsController<T = unknown> extends BasePRNGController<T> {
   value: T;
   items: WeightsItems<T>;
@@ -284,130 +352,13 @@ export class WeightsController<T = unknown> extends BasePRNGController<T> {
   }
 }
 
-// *********************
-// Group Controllers
-// *********************
-export class BooleanGroupController extends BasePRNGGroupController<boolean> {
-  probability: number;
-  controllers: BooleanController[] = [];
-
-  constructor(seed: string, probability: number) {
-    super(seed);
-
-    this.probability = probability;
-  }
-
-  createController(index: number) {
-    return new BooleanController(`${this.seed}-${index}`, this.probability);
-  }
-}
-
-export class SignGroupController extends BasePRNGGroupController<number> {
-  probability: number;
-  controllers: SignController[] = [];
-
-  constructor(seed: string, probability: number) {
-    super(seed);
-
-    this.probability = probability;
-  }
-
-  createController(index: number) {
-    return new SignController(`${this.seed}-${index}`, this.probability);
-  }
-}
-
-export class FloatGroupController extends BasePRNGGroupController<number> {
-  min: number;
-  max: number;
-  controllers: FloatController[] = [];
-
-  constructor(seed: string, min: number, max: number) {
-    super(seed);
-
-    this.min = min;
-    this.max = max;
-  }
-
-  createController(index: number) {
-    return new FloatController(`${this.seed}-${index}`, this.min, this.max);
-  }
-}
-
-export class IntGroupController extends BasePRNGGroupController<number> {
-  min: number;
-  max: number;
-  controllers: IntController[] = [];
-
-  constructor(seed: string, min: number, max: number) {
-    super(seed);
-
-    this.min = min;
-    this.max = max;
-  }
-
-  createController(index: number) {
-    return new IntController(`${this.seed}-${index}`, this.min, this.max);
-  }
-}
-
-export class HexColorGroupController extends BasePRNGGroupController<string> {
-  controllers: HexColorController[] = [];
-
-  // constructor(seed: string) {
-  //   super(seed);
-  // }
-
-  createController(index: number) {
-    return new HexColorController(`${this.seed}-${index}`);
-  }
-}
-
-export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T> {
-  items: T[];
-  controllers: ItemController<T>[] = [];
-
-  constructor(seed: string, items: T[]) {
-    super(seed);
-
-    this.items = items;
-  }
-
-  createController(index: number) {
-    return new ItemController<T>(`${this.seed}-${index}`, this.items);
-  }
-}
-
-export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupController<T> {
-  object: Record<string, T>;
-  controllers: ObjectPropertyController<T>[] = [];
-
-  constructor(seed: string, object: Record<string, T>) {
-    super(seed);
-
-    this.object = object;
-  }
-
-  createController(index: number) {
-    return new ObjectPropertyController<T>(`${this.seed}-${index}`, this.object);
-  }
-}
-
-export class WeightsGroupController<T = unknown> extends BasePRNGGroupController<T> {
-  items: WeightsItems<T>;
-  controllers: WeightsController<T>[] = [];
-
-  constructor(seed: string, items: WeightsItems<T>) {
-    super(seed);
-
-    this.items = items;
-  }
-
-  createController(index: number) {
-    return new WeightsController<T>(`${this.seed}-${index}`, this.items);
-  }
-}
-
+/**
+ * Utility class for generating a pseudo-random number fitting a Gaussian (normal) distribution
+ *
+ * @exports
+ * @class GaussianController
+ * @extends BasePRNGController
+ */
 export class GaussianController extends BasePRNGController<number> {
   value: number;
   mean: number;
@@ -430,5 +381,210 @@ export class GaussianController extends BasePRNGController<number> {
     this.value = prng.randomGaussian(this.seed, this.mean, this.spread);
     this.gui?.updateDisplay();
     return this.value;
+  }
+}
+
+// *********************
+// Group Controllers
+// *********************
+
+/**
+ * Utility class for managing multiple `BooleanController`
+ *
+ * @exports
+ * @class BooleanGroupController
+ * @extends BasePRNGGroupController
+ */
+export class BooleanGroupController extends BasePRNGGroupController<boolean> {
+  probability: number;
+  controllers: BooleanController[] = [];
+
+  constructor(seed: string, probability: number) {
+    super(seed);
+
+    this.probability = probability;
+  }
+
+  createController(index: number) {
+    return new BooleanController(`${this.seed}-${index}`, this.probability);
+  }
+}
+
+/**
+ * Utility class for managing multiple `SignController`
+ *
+ * @exports
+ * @class SignGroupController
+ * @extends BasePRNGGroupController
+ */
+export class SignGroupController extends BasePRNGGroupController<number> {
+  probability: number;
+  controllers: SignController[] = [];
+
+  constructor(seed: string, probability: number) {
+    super(seed);
+
+    this.probability = probability;
+  }
+
+  createController(index: number) {
+    return new SignController(`${this.seed}-${index}`, this.probability);
+  }
+}
+
+/**
+ * Utility class for managing multiple `FloatController`
+ *
+ * @exports
+ * @class FloatGroupController
+ * @extends BasePRNGGroupController
+ */
+export class FloatGroupController extends BasePRNGGroupController<number> {
+  min: number;
+  max: number;
+  controllers: FloatController[] = [];
+
+  constructor(seed: string, min: number, max: number) {
+    super(seed);
+
+    this.min = min;
+    this.max = max;
+  }
+
+  createController(index: number) {
+    return new FloatController(`${this.seed}-${index}`, this.min, this.max);
+  }
+}
+
+/**
+ * Utility class for managing multiple `IntController`
+ *
+ * @exports
+ * @class IntGroupController
+ * @extends BasePRNGGroupController
+ */
+export class IntGroupController extends BasePRNGGroupController<number> {
+  min: number;
+  max: number;
+  controllers: IntController[] = [];
+
+  constructor(seed: string, min: number, max: number) {
+    super(seed);
+
+    this.min = min;
+    this.max = max;
+  }
+
+  createController(index: number) {
+    return new IntController(`${this.seed}-${index}`, this.min, this.max);
+  }
+}
+
+/**
+ * Utility class for managing multiple `HexColorController`
+ *
+ * @exports
+ * @class HexColorGroupController
+ * @extends BasePRNGGroupController
+ */
+export class HexColorGroupController extends BasePRNGGroupController<string> {
+  controllers: HexColorController[] = [];
+
+  // constructor(seed: string) {
+  //   super(seed);
+  // }
+
+  createController(index: number) {
+    return new HexColorController(`${this.seed}-${index}`);
+  }
+}
+
+/**
+ * Utility class for managing multiple `ItemController`
+ *
+ * @exports
+ * @class ItemGroupController
+ * @extends BasePRNGGroupController
+ */
+export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T> {
+  items: T[];
+  controllers: ItemController<T>[] = [];
+
+  constructor(seed: string, items: T[]) {
+    super(seed);
+
+    this.items = items;
+  }
+
+  createController(index: number) {
+    return new ItemController<T>(`${this.seed}-${index}`, this.items);
+  }
+}
+
+/**
+ * Utility class for managing multiple `ObjectPropertyController`
+ *
+ * @exports
+ * @class ObjectPropertyGroupController
+ * @extends BasePRNGGroupController
+ */
+export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupController<T> {
+  object: Record<string, T>;
+  controllers: ObjectPropertyController<T>[] = [];
+
+  constructor(seed: string, object: Record<string, T>) {
+    super(seed);
+
+    this.object = object;
+  }
+
+  createController(index: number) {
+    return new ObjectPropertyController<T>(`${this.seed}-${index}`, this.object);
+  }
+}
+
+/**
+ * Utility class for managing multiple `WeightsController`
+ *
+ * @exports
+ * @class WeightsGroupController
+ * @extends BasePRNGGroupController
+ */
+export class WeightsGroupController<T = unknown> extends BasePRNGGroupController<T> {
+  items: WeightsItems<T>;
+  controllers: WeightsController<T>[] = [];
+
+  constructor(seed: string, items: WeightsItems<T>) {
+    super(seed);
+
+    this.items = items;
+  }
+
+  createController(index: number) {
+    return new WeightsController<T>(`${this.seed}-${index}`, this.items);
+  }
+}
+
+/**
+ * Utility class for managing multiple `GaussianController`
+ *
+ * @exports
+ * @class GaussianGroupController
+ * @extends BasePRNGGroupController
+ */
+export class GaussianGroupController extends BasePRNGGroupController<number> {
+  controllers: GaussianController[] = [];
+  mean: number;
+  spread: number;
+
+  constructor(seed: string, mean: number = 0, spread: number = 1) {
+    super(seed);
+
+    this.mean = mean;
+    this.spread = spread;
+  }
+
+  createController(index: number) {
+    return new GaussianController(`${this.seed}-${index}`, this.mean, this.spread);
   }
 }
