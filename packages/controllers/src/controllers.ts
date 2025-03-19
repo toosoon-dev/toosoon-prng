@@ -1,18 +1,17 @@
-import { Gui, GuiController } from 'toosoon-gui';
-
 import prng from './prng';
+import type { FolderApi as Folder, FolderParams, BindingApi as Binding, BindingParams } from '@tweakpane/core';
 
 export interface PRNGController<T = unknown> {
   seed: string;
   value: T;
-  addGUI(gui: Gui, min?: number, max?: number, step?: number): GuiController;
+  addGUI(gui: Folder, params?: BindingParams): Binding;
   getValue(): T;
   dispose(): void;
 }
 
 export interface PRNGGroupController<T = unknown> {
   seed: string;
-  addGUI(gui: Gui, min?: number, max?: number, step?: number): Gui;
+  addGUI(gui: Folder, params?: Partial<FolderParams>): Folder;
   createController(index: number): PRNGController<T>;
   getValueAt(index: number): T;
   dispose(): void;
@@ -28,20 +27,20 @@ export interface PRNGGroupController<T = unknown> {
 abstract class BasePRNGController<T> implements PRNGController<T> {
   seed: string;
   abstract value: T;
-  gui!: GuiController;
+  gui!: Binding;
 
   constructor(seed: string) {
     this.seed = seed;
     prng.addController(this);
   }
 
-  abstract addGUI(gui: Gui, min?: number, max?: number, step?: number): GuiController;
+  abstract addGUI(gui: Folder, params?: BindingParams): Binding;
 
   abstract getValue(): T;
 
   dispose() {
     prng.removeController(this);
-    this.gui?.destroy();
+    this.gui?.dispose();
   }
 }
 
@@ -55,20 +54,16 @@ abstract class BasePRNGController<T> implements PRNGController<T> {
 abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
   seed: string;
   controllers: PRNGController<T>[] = [];
-  gui!: Gui;
-  guiArgs!: {
-    min?: number;
-    max?: number;
-    step?: number;
-  };
+  gui!: Folder;
+  guiParams!: BindingParams;
 
   constructor(seed: string) {
     this.seed = seed;
   }
 
-  addGUI(gui: Gui, min?: number, max?: number, step?: number) {
-    this.gui = gui.addFolder(this.seed).close();
-    this.guiArgs = { min, max, step };
+  addGUI(gui: Folder, params: Partial<FolderParams> = {}) {
+    this.gui = gui.addFolder({ title: this.seed, expanded: false, ...params });
+    this.guiParams = params;
     return this.gui;
   }
 
@@ -79,9 +74,7 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
     if (!controller) {
       controller = this.createController(index);
       if (this.gui) {
-        controller
-          .addGUI(this.gui, this.guiArgs.min, this.guiArgs.max, this.guiArgs.step)
-          .name(`${this.seed}-${index}`);
+        controller.addGUI(this.gui, { label: `${this.gui.title}-${index}`, ...this.guiParams });
       }
       this.controllers[index] = controller;
     }
@@ -91,7 +84,11 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
   dispose() {
     this.controllers.forEach((controller) => controller.dispose());
     this.controllers = [];
-    this.gui?.destroy();
+    this.gui?.dispose();
+  }
+
+  get title() {
+    return this.seed;
   }
 }
 
@@ -117,14 +114,14 @@ export class BooleanController extends BasePRNGController<boolean> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.add(this, 'value').name(this.seed);
+  addGUI(gui: Folder, params: BindingParams = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomBoolean(this.seed, this.probability);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -147,14 +144,14 @@ export class SignController extends BasePRNGController<number> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.add(this, 'value', [-1, 1]).name(this.seed);
+  addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: [-1, 1], ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomSign(this.seed, this.probability);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -179,14 +176,14 @@ export class FloatController extends BasePRNGController<number> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui, min: number, max: number, step: number = 0.01) {
-    this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
+  addGUI(gui: Folder, { min, max, step = 0.01, ...params }: BindingParams = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomFloat(this.seed, this.min, this.max);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -211,14 +208,14 @@ export class IntController extends BasePRNGController<number> {
     this.value = prng.randomInt(this.seed, min, max);
   }
 
-  addGUI(gui: Gui, min: number, max: number, step = 1) {
-    this.gui = gui.add(this, 'value', min, max, step).name(this.seed);
+  addGUI(gui: Folder, { min, max, step = 1, ...params }: BindingParams = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomInt(this.seed, this.min, this.max);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -239,14 +236,14 @@ export class HexColorController extends BasePRNGController<string> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.addColor(this, 'value').name(this.seed);
+  addGUI(gui: Folder, { view = 'color', ...params }: BindingParams = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, view, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomHexColor(this.seed);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -269,14 +266,14 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.add(this, 'value', this.items).name(this.seed);
+  addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: this.items, ...params });
     return this.gui;
   }
 
   getValue() {
-    this.value = prng.randomItem(this.seed, this.items) as T;
-    this.gui?.updateDisplay();
+    this.value = prng.randomItem<T>(this.seed, this.items) as T;
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -299,14 +296,14 @@ export class ObjectPropertyController<T = unknown> extends BasePRNGController<T>
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.add(this, 'value', this.object).name(this.seed);
+  addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: this.object, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomObjectProperty<T>(this.seed, this.object) as T;
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -333,21 +330,19 @@ export class WeightsController<T = unknown> extends BasePRNGController<T> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui
-      .add(
-        this,
-        'value',
-        this.items.map((item) => item.value)
-      )
-      .name(this.seed);
+  addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
+    this.gui = gui.addBinding(this, 'value', {
+      label: this.seed,
+      options: this.items.map((item) => item.value),
+      ...params
+    });
     return this.gui;
   }
 
   getValue() {
     const index = prng.randomIndex(this.seed, this.weights);
     this.value = this.items[index].value;
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }
@@ -372,14 +367,17 @@ export class GaussianController extends BasePRNGController<number> {
     this.value = this.getValue();
   }
 
-  addGUI(gui: Gui) {
-    this.gui = gui.add(this, 'value', this.mean - this.spread, this.mean + this.spread).name(this.seed);
+  addGUI(
+    gui: Folder,
+    { min = this.mean - this.spread, max = this.mean + this.spread, step, ...params }: BindingParams = {}
+  ) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
     return this.gui;
   }
 
   getValue() {
     this.value = prng.randomGaussian(this.seed, this.mean, this.spread);
-    this.gui?.updateDisplay();
+    this.gui?.refresh();
     return this.value;
   }
 }

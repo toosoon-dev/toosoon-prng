@@ -2,12 +2,10 @@
 # yarn lockfile v1
 
 
-toosoon-gui@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/toosoon-gui/-/toosoon-gui-3.0.0.tgz#de0631e8eb2761e74e8d9758e8ac60fb3443e708"
-  integrity sha512-o6XBjO+i2ZaYE10Vyp2n7t/QqNdZ6HkpY55tnEv530WWftItdYIx7K/s7cBTWC7qS/By/cadqBSq+YYSDdp1Xw==
-  dependencies:
-    toosoon-utils "^3.0.0"
+"@tweakpane/core@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@tweakpane/core/-/core-2.0.5.tgz#bae776cd530b31f5e5424641411d4b20c3baed8e"
+  integrity sha512-punBgD5rKCF5vcNo6BsSOXiDR/NSs9VM7SG65QSLJIxfRaGgj54ree9zQW6bO3pNFf3AogiGgaNODUVQRk9YqQ==
 
 toosoon-prng@^3.1.0:
   version "3.1.0"
@@ -16,15 +14,15 @@ toosoon-prng@^3.1.0:
   dependencies:
     toosoon-utils "^3.1.0"
 
-toosoon-utils@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.0.0.tgz#7024e20cce9e3d823dfce8c2403969e654866f5d"
-  integrity sha512-uoQUcHHc2iGhKB/2Psm6BskKHcbpJZgDmUJwcrZ26pLUV5gV0voiqXCrLdIF9WBANxw+i9BGKicMxHq/0BGUSQ==
-
 toosoon-utils@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-3.1.0.tgz#a1524dc450ed87c02be45e0ac454484c7e0d607e"
   integrity sha512-H9cDNzbPxACqwrfuIzuVao/lXtIH/Lhzhqe/FN2mpGSl5ArtU8CrIb+yxkxbtfxc5xAXyykP1q335S0Scr4Rpg==
+
+tweakpane@^4.0.5:
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/tweakpane/-/tweakpane-4.0.5.tgz#696572c4294c48a11cc0a3c487ea89ad1491e09a"
+  integrity sha512-rxEXdSI+ArlG1RyO6FghC4ZUX8JkEfz8F3v1JuteXSV0pEtHJzyo07fcDG+NsJfN5L39kSbCYbB9cBGHyuI/tQ==
 
 typescript@^5.4.2:
   version "5.4.2"
