@@ -1,6 +1,6 @@
-import { AlgorithmName, PRNG as BasePRNG } from 'toosoon-prng';
+import { type AlgorithmName, PRNG as BasePRNG } from 'toosoon-prng';
 
-import { PRNGController } from './controllers';
+import { type PRNGController } from './controllers';
 
 /**
  * Utility class for generating pseudo-random values and managing PRNG Controllers

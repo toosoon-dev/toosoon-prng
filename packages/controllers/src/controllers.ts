@@ -1,32 +1,16 @@
 import prng from './prng';
 import type { FolderApi as Folder, FolderParams, BindingApi as Binding, BindingParams } from '@tweakpane/core';
 
-export interface PRNGController<T = unknown> {
-  seed: string;
-  value: T;
-  addGUI(gui: Folder, params?: BindingParams): Binding;
-  getValue(): T;
-  dispose(): void;
-}
-
-export interface PRNGGroupController<T = unknown> {
-  seed: string;
-  addGUI(gui: Folder, params?: Partial<FolderParams>): Folder;
-  createController(index: number): PRNGController<T>;
-  getValueAt(index: number): T;
-  dispose(): void;
-}
-
 /**
  * Utility abstract class for generating pseudo-random values
  *
- * @class BasePRNGController
- * @implements PRNGController
+ * @class PRNGController
  * @abstract
  */
-abstract class BasePRNGController<T> implements PRNGController<T> {
+export abstract class PRNGController<T = unknown> {
   seed: string;
   abstract value: T;
+
   gui!: Binding;
 
   constructor(seed: string) {
@@ -34,7 +18,10 @@ abstract class BasePRNGController<T> implements PRNGController<T> {
     prng.addController(this);
   }
 
-  abstract addGUI(gui: Folder, params?: BindingParams): Binding;
+  addGUI(gui: Folder, params: BindingParams = {}) {
+    this.gui = gui.addBinding(this, 'value', { label: this.seed, ...params });
+    return this.gui;
+  }
 
   abstract getValue(): T;
 
@@ -47,13 +34,13 @@ abstract class BasePRNGController<T> implements PRNGController<T> {
 /**
  * Utility abstract class for managing multiple instances of individual controllers
  *
- * @class BasePRNGGroupController
- * @implements PRNGGroupController
+ * @class PRNGGroupController
  * @abstract
  */
-abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
+export abstract class PRNGGroupController<T = unknown> {
   seed: string;
   controllers: PRNGController<T>[] = [];
+
   gui!: Folder;
   guiParams!: BindingParams;
 
@@ -61,7 +48,7 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
     this.seed = seed;
   }
 
-  addGUI(gui: Folder, params: Partial<FolderParams> = {}) {
+  addGUI(gui: Folder, params: Partial<FolderParams> = {}): Folder {
     this.gui = gui.addFolder({ title: this.seed, expanded: false, ...params });
     this.guiParams = params;
     return this.gui;
@@ -86,10 +73,6 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
     this.controllers = [];
     this.gui?.dispose();
   }
-
-  get title() {
-    return this.seed;
-  }
 }
 
 // *********************
@@ -101,9 +84,9 @@ abstract class BasePRNGGroupController<T> implements PRNGGroupController<T> {
  *
  * @exports
  * @class BooleanController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class BooleanController extends BasePRNGController<boolean> {
+export class BooleanController extends PRNGController<boolean> {
   value: boolean;
   probability: number;
 
@@ -112,11 +95,6 @@ export class BooleanController extends BasePRNGController<boolean> {
 
     this.probability = probability;
     this.value = this.getValue();
-  }
-
-  addGUI(gui: Folder, params: BindingParams = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, ...params });
-    return this.gui;
   }
 
   getValue() {
@@ -131,9 +109,9 @@ export class BooleanController extends BasePRNGController<boolean> {
  *
  * @exports
  * @class SignController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class SignController extends BasePRNGController<number> {
+export class SignController extends PRNGController<number> {
   value: number;
   probability: number;
 
@@ -145,8 +123,7 @@ export class SignController extends BasePRNGController<number> {
   }
 
   addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: [-1, 1], ...params });
-    return this.gui;
+    return super.addGUI(gui, { options: [-1, 1], ...params });
   }
 
   getValue() {
@@ -161,9 +138,9 @@ export class SignController extends BasePRNGController<number> {
  *
  * @exports
  * @class FloatController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class FloatController extends BasePRNGController<number> {
+export class FloatController extends PRNGController<number> {
   value: number;
   min: number;
   max: number;
@@ -177,8 +154,7 @@ export class FloatController extends BasePRNGController<number> {
   }
 
   addGUI(gui: Folder, { min, max, step = 0.01, ...params }: BindingParams = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
-    return this.gui;
+    return super.addGUI(gui, { min, max, step, ...params });
   }
 
   getValue() {
@@ -193,9 +169,9 @@ export class FloatController extends BasePRNGController<number> {
  *
  * @exports
  * @class IntController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class IntController extends BasePRNGController<number> {
+export class IntController extends PRNGController<number> {
   value: number;
   min: number;
   max: number;
@@ -209,8 +185,7 @@ export class IntController extends BasePRNGController<number> {
   }
 
   addGUI(gui: Folder, { min, max, step = 1, ...params }: BindingParams = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
-    return this.gui;
+    return super.addGUI(gui, { min, max, step, ...params });
   }
 
   getValue() {
@@ -225,9 +200,9 @@ export class IntController extends BasePRNGController<number> {
  *
  * @exports
  * @class HexColorController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class HexColorController extends BasePRNGController<string> {
+export class HexColorController extends PRNGController<string> {
   value: string;
 
   constructor(seed: string) {
@@ -237,8 +212,7 @@ export class HexColorController extends BasePRNGController<string> {
   }
 
   addGUI(gui: Folder, { view = 'color', ...params }: BindingParams = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, view, ...params });
-    return this.gui;
+    return super.addGUI(gui, { view, ...params });
   }
 
   getValue() {
@@ -253,9 +227,9 @@ export class HexColorController extends BasePRNGController<string> {
  *
  * @exports
  * @class ItemController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class ItemController<T = unknown> extends BasePRNGController<T> {
+export class ItemController<T = unknown> extends PRNGController<T> {
   value: T;
   items: T[];
 
@@ -267,8 +241,7 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
   }
 
   addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: this.items, ...params });
-    return this.gui;
+    return super.addGUI(gui, { options: this.items, ...params });
   }
 
   getValue() {
@@ -283,9 +256,9 @@ export class ItemController<T = unknown> extends BasePRNGController<T> {
  *
  * @exports
  * @class ObjectPropertyController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class ObjectPropertyController<T = unknown> extends BasePRNGController<T> {
+export class ObjectPropertyController<T = unknown> extends PRNGController<T> {
   value: T;
   object: Record<string, T>;
 
@@ -297,8 +270,7 @@ export class ObjectPropertyController<T = unknown> extends BasePRNGController<T>
   }
 
   addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, options: this.object, ...params });
-    return this.gui;
+    return super.addGUI(gui, { options: this.object, ...params });
   }
 
   getValue() {
@@ -315,9 +287,9 @@ type WeightsItems<T> = Array<{ weight: number; value: T }>;
  *
  * @exports
  * @class WeightsController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class WeightsController<T = unknown> extends BasePRNGController<T> {
+export class WeightsController<T = unknown> extends PRNGController<T> {
   value: T;
   items: WeightsItems<T>;
   weights: number[];
@@ -331,12 +303,7 @@ export class WeightsController<T = unknown> extends BasePRNGController<T> {
   }
 
   addGUI(gui: Folder, params: Omit<BindingParams, 'options'> = {}) {
-    this.gui = gui.addBinding(this, 'value', {
-      label: this.seed,
-      options: this.items.map((item) => item.value),
-      ...params
-    });
-    return this.gui;
+    return super.addGUI(gui, { options: this.items.map((item) => item.value), ...params });
   }
 
   getValue() {
@@ -352,9 +319,9 @@ export class WeightsController<T = unknown> extends BasePRNGController<T> {
  *
  * @exports
  * @class GaussianController
- * @extends BasePRNGController
+ * @extends PRNGController
  */
-export class GaussianController extends BasePRNGController<number> {
+export class GaussianController extends PRNGController<number> {
   value: number;
   mean: number;
   spread: number;
@@ -371,8 +338,7 @@ export class GaussianController extends BasePRNGController<number> {
     gui: Folder,
     { min = this.mean - this.spread, max = this.mean + this.spread, step, ...params }: BindingParams = {}
   ) {
-    this.gui = gui.addBinding(this, 'value', { label: this.seed, min, max, step, ...params });
-    return this.gui;
+    return super.addGUI(gui, { min, max, step, ...params });
   }
 
   getValue() {
@@ -391,9 +357,9 @@ export class GaussianController extends BasePRNGController<number> {
  *
  * @exports
  * @class BooleanGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class BooleanGroupController extends BasePRNGGroupController<boolean> {
+export class BooleanGroupController extends PRNGGroupController<boolean> {
   probability: number;
   controllers: BooleanController[] = [];
 
@@ -413,9 +379,9 @@ export class BooleanGroupController extends BasePRNGGroupController<boolean> {
  *
  * @exports
  * @class SignGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class SignGroupController extends BasePRNGGroupController<number> {
+export class SignGroupController extends PRNGGroupController<number> {
   probability: number;
   controllers: SignController[] = [];
 
@@ -435,9 +401,9 @@ export class SignGroupController extends BasePRNGGroupController<number> {
  *
  * @exports
  * @class FloatGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class FloatGroupController extends BasePRNGGroupController<number> {
+export class FloatGroupController extends PRNGGroupController<number> {
   min: number;
   max: number;
   controllers: FloatController[] = [];
@@ -459,9 +425,9 @@ export class FloatGroupController extends BasePRNGGroupController<number> {
  *
  * @exports
  * @class IntGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class IntGroupController extends BasePRNGGroupController<number> {
+export class IntGroupController extends PRNGGroupController<number> {
   min: number;
   max: number;
   controllers: IntController[] = [];
@@ -483,9 +449,9 @@ export class IntGroupController extends BasePRNGGroupController<number> {
  *
  * @exports
  * @class HexColorGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class HexColorGroupController extends BasePRNGGroupController<string> {
+export class HexColorGroupController extends PRNGGroupController<string> {
   controllers: HexColorController[] = [];
 
   // constructor(seed: string) {
@@ -502,9 +468,9 @@ export class HexColorGroupController extends BasePRNGGroupController<string> {
  *
  * @exports
  * @class ItemGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T> {
+export class ItemGroupController<T = unknown> extends PRNGGroupController<T> {
   items: T[];
   controllers: ItemController<T>[] = [];
 
@@ -524,9 +490,9 @@ export class ItemGroupController<T = unknown> extends BasePRNGGroupController<T>
  *
  * @exports
  * @class ObjectPropertyGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupController<T> {
+export class ObjectPropertyGroupController<T = unknown> extends PRNGGroupController<T> {
   object: Record<string, T>;
   controllers: ObjectPropertyController<T>[] = [];
 
@@ -546,9 +512,9 @@ export class ObjectPropertyGroupController<T = unknown> extends BasePRNGGroupCon
  *
  * @exports
  * @class WeightsGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class WeightsGroupController<T = unknown> extends BasePRNGGroupController<T> {
+export class WeightsGroupController<T = unknown> extends PRNGGroupController<T> {
   items: WeightsItems<T>;
   controllers: WeightsController<T>[] = [];
 
@@ -568,9 +534,9 @@ export class WeightsGroupController<T = unknown> extends BasePRNGGroupController
  *
  * @exports
  * @class GaussianGroupController
- * @extends BasePRNGGroupController
+ * @extends PRNGGroupController
  */
-export class GaussianGroupController extends BasePRNGGroupController<number> {
+export class GaussianGroupController extends PRNGGroupController<number> {
   controllers: GaussianController[] = [];
   mean: number;
   spread: number;

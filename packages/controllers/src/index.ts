@@ -7,6 +7,7 @@ export {
   ItemController,
   ObjectPropertyController,
   WeightsController,
+  GaussianController,
   BooleanGroupController,
   SignGroupController,
   IntGroupController,
@@ -14,7 +15,8 @@ export {
   HexColorGroupController,
   ItemGroupController,
   ObjectPropertyGroupController,
-  WeightsGroupController
+  WeightsGroupController,
+  GaussianGroupController
 } from './controllers';
 
 export { default, PRNG } from './prng';

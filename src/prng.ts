@@ -185,8 +185,6 @@ export class PRNG {
         return splitmix32;
       case AlgorithmName.xoshiro128ss:
         return xoshiro128ss;
-      default:
-        return splitmix32;
     }
   }
 }
