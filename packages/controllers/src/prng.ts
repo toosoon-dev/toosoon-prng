@@ -1,4 +1,4 @@
-import { type AlgorithmName, PRNG as BasePRNG } from 'toosoon-prng';
+import { type AlgorithmFunction, type AlgorithmName, PRNG as BasePRNG } from 'toosoon-prng';
 
 import { type PRNGController } from './controllers';
 
@@ -11,6 +11,18 @@ import { type PRNGController } from './controllers';
  */
 export class PRNG extends BasePRNG {
   public controllers: PRNGController[] = [];
+
+  set seed(seed: string | number) {
+    if (this._seed === `${seed}`) return;
+    this._seed = `${seed}`;
+    this.controllers.forEach((controller) => controller.getValue());
+  }
+
+  set algorithm(algorithm: AlgorithmFunction) {
+    if (this._algorithm === algorithm) return;
+    this._algorithm = algorithm;
+    this.controllers.forEach((controller) => controller.getValue());
+  }
 
   /**
    * Add a controller to this PRNG
@@ -34,10 +46,10 @@ export class PRNG extends BasePRNG {
   /**
    * Set this PRNG seed
    *
-   * @param {string} seed
+   * @param {string|number} seed
    */
-  public setSeed(seed: string): void {
-    if (this.seed === seed) return;
+  public setSeed(seed: string | number): void {
+    if (this.seed === `${seed}`) return;
     super.setSeed(seed);
     this.controllers.forEach((controller) => controller.getValue());
   }

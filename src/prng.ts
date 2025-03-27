@@ -1,5 +1,5 @@
 import { cyrb128, jsf32, mulberry32, sfc32, splitmix32, xoshiro128ss } from 'toosoon-utils/prng';
-import { AlgorithmName } from './types';
+import { AlgorithmFunction, AlgorithmName } from './types';
 
 /**
  * Utility class for generating pseudo-random values
@@ -8,8 +8,24 @@ import { AlgorithmName } from './types';
  * @exports
  */
 export class PRNG {
-  public seed: string = '';
-  public algorithm: (...args: number[]) => number = splitmix32;
+  protected _seed: string = '';
+  protected _algorithm: AlgorithmFunction = splitmix32;
+
+  get seed() {
+    return this._seed;
+  }
+
+  set seed(seed: string | number) {
+    this._seed = `${seed}`;
+  }
+
+  get algorithm() {
+    return this._algorithm;
+  }
+
+  set algorithm(algorithm: AlgorithmFunction) {
+    this._algorithm = algorithm;
+  }
 
   /**
    * Set this PRNG seed

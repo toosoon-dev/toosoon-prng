@@ -5,3 +5,5 @@ export enum AlgorithmName {
   splitmix32 = 'splitmix32',
   xoshiro128ss = 'xoshiro128**'
 }
+
+export type AlgorithmFunction = (...args: number[]) => number;

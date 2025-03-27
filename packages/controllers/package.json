@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng-controllers",
-  "version": "4.1.2",
+  "version": "4.1.3",
   "description": "This project provides PRNG functions with a set of Controllers for generating pseudo-random values using a seed-based approach and various algorithms",
   "type": "module",
   "engines": {
@@ -32,13 +32,10 @@
   },
   "homepage": "https://github.com/toosoon-dev/toosoon-prng#readme",
   "dependencies": {
-    "toosoon-prng": "latest"
+    "toosoon-prng": "^4.0.3"
   },
   "devDependencies": {
     "@tweakpane/core": "^2.0.5",
     "typescript": "^5.4.2"
-  },
-  "peerDependencies": {
-    "tweakpane": "^4.0.5"
   }
 }

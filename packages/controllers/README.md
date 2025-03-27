@@ -42,7 +42,7 @@ for (let i = 0; i < 5; i++) {
 Generate pseudo-random boolean value.
 
 ```ts
-class BooleanController(seed: string, probability?: number);
+class BooleanController(seed: string | number, probability?: number);
 ```
 
 ### SignController
@@ -50,7 +50,7 @@ class BooleanController(seed: string, probability?: number);
 Generate pseudo-random sign value (-1 or 1).
 
 ```ts
-class SignController(seed: string, probability?: number);
+class SignController(seed: string | number, probability?: number);
 ```
 
 ### FloatController
@@ -58,7 +58,7 @@ class SignController(seed: string, probability?: number);
 Generate pseudo-random floating-point number within a specified range.
 
 ```ts
-class FloatController(seed: string, min?: number, max?: number);
+class FloatController(seed: string | number, min?: number, max?: number);
 ```
 
 ### IntController
@@ -66,7 +66,7 @@ class FloatController(seed: string, min?: number, max?: number);
 Generate pseudo-random integer number within a specified range.
 
 ```ts
-class IntController(seed: string, min: number, max: number);
+class IntController(seed: string | number, min: number, max: number);
 ```
 
 ### HexColorController
@@ -82,7 +82,7 @@ class HexColorController(seed: string);
 Pick a pseudo-random item from a given array.
 
 ```ts
-class ItemController<T>(seed: string, items: T[]);
+class ItemController<T>(seed: string | number, items: T[]);
 ```
 
 ### ObjectPropertyController
@@ -90,7 +90,7 @@ class ItemController<T>(seed: string, items: T[]);
 Pick a pseudo-random property value from a given object.
 
 ```ts
-class ObjectPropertyController<T>(seed: string, object: Record<string, T>);
+class ObjectPropertyController<T>(seed: string | number, object: Record<string, T>);
 ```
 
 ### WeightsController
@@ -98,7 +98,7 @@ class ObjectPropertyController<T>(seed: string, object: Record<string, T>);
 Select a pseudo-random index from an array of weighted items.
 
 ```ts
-class WeightsController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+class WeightsController<T>(seed: string | number, items: Array<{ weight: number; value: T }>);
 ```
 
 ### GaussianController
@@ -106,7 +106,7 @@ class WeightsController<T>(seed: string, items: Array<{ weight: number; value: T
 Generate a pseudo-random number fitting a Gaussian (normal) distribution.
 
 ```ts
-class GaussianController(seed: string, mean?: number, spread?: number);
+class GaussianController(seed: string | number, mean?: number, spread?: number);
 ```
 
 ## Group Controllers
@@ -118,7 +118,7 @@ Group Controllers manage multiple instances of individual controllers.
 Manage multiple [`BooleanController`](#booleancontroller).
 
 ```ts
-class BooleanGroupController(seed: string, probability: number);
+class BooleanGroupController(seed: string | number, probability: number);
 ```
 
 ### SignGroupController
@@ -126,7 +126,7 @@ class BooleanGroupController(seed: string, probability: number);
 Manage multiple [`SignController`](#signcontroller).
 
 ```ts
-class SignGroupController(seed: string, probability: number);
+class SignGroupController(seed: string | number, probability: number);
 ```
 
 ### FloatGroupController
@@ -134,7 +134,7 @@ class SignGroupController(seed: string, probability: number);
 Manage multiple [`FloatController`](#floatcontroller).
 
 ```ts
-class FloatGroupController(seed: string, min: number, max: number);
+class FloatGroupController(seed: string | number, min: number, max: number);
 ```
 
 ### IntGroupController
@@ -142,7 +142,7 @@ class FloatGroupController(seed: string, min: number, max: number);
 Manage multiple [`IntController`](#intcontroller).
 
 ```ts
-class IntGroupController(seed: string, min: number, max: number);
+class IntGroupController(seed: string | number, min: number, max: number);
 ```
 
 ### HexColorGroupController
@@ -158,7 +158,7 @@ class HexColorGroupController(seed: string);
 Manage multiple [`ItemController`](#itemcontroller).
 
 ```ts
-class ItemGroupController<T>(seed: string, items: T[]);
+class ItemGroupController<T>(seed: string | number, items: T[]);
 ```
 
 ### ObjectPropertyGroupController
@@ -166,7 +166,7 @@ class ItemGroupController<T>(seed: string, items: T[]);
 Manage multiple [`ObjectPropertyController`](#objectpropertycontroller).
 
 ```ts
-class ObjectPropertyGroupController<T>(seed: string, object: object);
+class ObjectPropertyGroupController<T>(seed: string | number, object: object);
 ```
 
 ### WeightsGroupController
@@ -174,7 +174,7 @@ class ObjectPropertyGroupController<T>(seed: string, object: object);
 Manage multiple [`WeightsController`](#weightscontroller).
 
 ```ts
-class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; value: T }>);
+class WeightsGroupController<T>(seed: string | number, items: Array<{ weight: number; value: T }>);
 ```
 
 ### GaussianGroupController
@@ -182,7 +182,7 @@ class WeightsGroupController<T>(seed: string, items: Array<{ weight: number; val
 Manage multiple [`GaussianController`](#gaussiancontroller).
 
 ```ts
-class GaussianGroupController<T>(seed: string, mean?: number, spread?: number);
+class GaussianGroupController<T>(seed: string | number, mean?: number, spread?: number);
 ```
 
 ## License

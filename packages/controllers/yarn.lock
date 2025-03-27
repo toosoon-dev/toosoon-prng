@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@tweakpane/core/-/core-2.0.5.tgz#bae776cd530b31f5e5424641411d4b20c3baed8e"
   integrity sha512-punBgD5rKCF5vcNo6BsSOXiDR/NSs9VM7SG65QSLJIxfRaGgj54ree9zQW6bO3pNFf3AogiGgaNODUVQRk9YqQ==
 
-toosoon-prng@latest:
-  version "4.0.2"
-  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-4.0.2.tgz#ca1ba0de7bd93163dab9a19e56a0055ea9e6c969"
-  integrity sha512-CcZfEsoSeFHAtENk/438cjvYxY/hEKO65Y3dRW6u8FfnOy6BPTkZWy74PgKAQBVOz6Kqy9gn12JVYvcH1d49mg==
+toosoon-prng@^4.0.3:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-4.0.3.tgz#4732a34339aeefd8ced57363ac53fa402192c3c2"
+  integrity sha512-G0t0hAm5zXkIYa5vLoZeehOMcAxttzi2+qQxOg4Ck+KV46ymBp3U/76v3t+N2aulr6Z6XYyw6MlcwUTOFhUJKw==
   dependencies:
     toosoon-utils latest
 
