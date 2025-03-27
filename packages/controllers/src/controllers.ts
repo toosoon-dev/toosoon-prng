@@ -13,8 +13,8 @@ export abstract class PRNGController<T = unknown> {
 
   gui!: Binding;
 
-  constructor(seed: string) {
-    this.seed = seed;
+  constructor(seed: string | number) {
+    this.seed = `${seed}`;
     prng.addController(this);
   }
 
@@ -44,8 +44,8 @@ export abstract class PRNGGroupController<T = unknown> {
   gui!: Folder;
   guiParams!: BindingParams;
 
-  constructor(seed: string) {
-    this.seed = seed;
+  constructor(seed: string | number) {
+    this.seed = `${seed}`;
   }
 
   addGUI(gui: Folder, params: Partial<FolderParams> = {}): Folder {
@@ -90,7 +90,7 @@ export class BooleanController extends PRNGController<boolean> {
   value: boolean;
   probability: number;
 
-  constructor(seed: string, probability: number = 0.5) {
+  constructor(seed: string | number, probability: number = 0.5) {
     super(seed);
 
     this.probability = probability;
@@ -115,7 +115,7 @@ export class SignController extends PRNGController<number> {
   value: number;
   probability: number;
 
-  constructor(seed: string, probability: number = 0.5) {
+  constructor(seed: string | number, probability: number = 0.5) {
     super(seed);
 
     this.probability = probability;
@@ -145,7 +145,7 @@ export class FloatController extends PRNGController<number> {
   min: number;
   max: number;
 
-  constructor(seed: string, min: number = 0, max: number = 1) {
+  constructor(seed: string | number, min: number = 0, max: number = 1) {
     super(seed);
 
     this.min = min;
@@ -176,7 +176,7 @@ export class IntController extends PRNGController<number> {
   min: number;
   max: number;
 
-  constructor(seed: string, min: number, max: number) {
+  constructor(seed: string | number, min: number, max: number) {
     super(seed);
 
     this.min = min;
@@ -205,7 +205,7 @@ export class IntController extends PRNGController<number> {
 export class HexColorController extends PRNGController<string> {
   value: string;
 
-  constructor(seed: string) {
+  constructor(seed: string | number) {
     super(seed);
 
     this.value = this.getValue();
@@ -233,7 +233,7 @@ export class ItemController<T = unknown> extends PRNGController<T> {
   value: T;
   items: T[];
 
-  constructor(seed: string, items: T[]) {
+  constructor(seed: string | number, items: T[]) {
     super(seed);
 
     this.items = items;
@@ -262,7 +262,7 @@ export class ObjectPropertyController<T = unknown> extends PRNGController<T> {
   value: T;
   object: Record<string, T>;
 
-  constructor(seed: string, object: Record<string, T>) {
+  constructor(seed: string | number, object: Record<string, T>) {
     super(seed);
 
     this.object = object;
@@ -294,7 +294,7 @@ export class WeightsController<T = unknown> extends PRNGController<T> {
   items: WeightsItems<T>;
   weights: number[];
 
-  constructor(seed: string, items: WeightsItems<T>) {
+  constructor(seed: string | number, items: WeightsItems<T>) {
     super(seed);
 
     this.items = items;
@@ -326,7 +326,7 @@ export class GaussianController extends PRNGController<number> {
   mean: number;
   spread: number;
 
-  constructor(seed: string, mean: number = 0, spread = 1) {
+  constructor(seed: string | number, mean: number = 0, spread = 1) {
     super(seed);
 
     this.mean = mean;
@@ -363,7 +363,7 @@ export class BooleanGroupController extends PRNGGroupController<boolean> {
   probability: number;
   controllers: BooleanController[] = [];
 
-  constructor(seed: string, probability: number) {
+  constructor(seed: string | number, probability: number) {
     super(seed);
 
     this.probability = probability;
@@ -385,7 +385,7 @@ export class SignGroupController extends PRNGGroupController<number> {
   probability: number;
   controllers: SignController[] = [];
 
-  constructor(seed: string, probability: number) {
+  constructor(seed: string | number, probability: number) {
     super(seed);
 
     this.probability = probability;
@@ -408,7 +408,7 @@ export class FloatGroupController extends PRNGGroupController<number> {
   max: number;
   controllers: FloatController[] = [];
 
-  constructor(seed: string, min: number, max: number) {
+  constructor(seed: string | number, min: number, max: number) {
     super(seed);
 
     this.min = min;
@@ -432,7 +432,7 @@ export class IntGroupController extends PRNGGroupController<number> {
   max: number;
   controllers: IntController[] = [];
 
-  constructor(seed: string, min: number, max: number) {
+  constructor(seed: string | number, min: number, max: number) {
     super(seed);
 
     this.min = min;
@@ -454,7 +454,7 @@ export class IntGroupController extends PRNGGroupController<number> {
 export class HexColorGroupController extends PRNGGroupController<string> {
   controllers: HexColorController[] = [];
 
-  // constructor(seed: string) {
+  // constructor(seed: string | number) {
   //   super(seed);
   // }
 
@@ -474,7 +474,7 @@ export class ItemGroupController<T = unknown> extends PRNGGroupController<T> {
   items: T[];
   controllers: ItemController<T>[] = [];
 
-  constructor(seed: string, items: T[]) {
+  constructor(seed: string | number, items: T[]) {
     super(seed);
 
     this.items = items;
@@ -496,7 +496,7 @@ export class ObjectPropertyGroupController<T = unknown> extends PRNGGroupControl
   object: Record<string, T>;
   controllers: ObjectPropertyController<T>[] = [];
 
-  constructor(seed: string, object: Record<string, T>) {
+  constructor(seed: string | number, object: Record<string, T>) {
     super(seed);
 
     this.object = object;
@@ -518,7 +518,7 @@ export class WeightsGroupController<T = unknown> extends PRNGGroupController<T> 
   items: WeightsItems<T>;
   controllers: WeightsController<T>[] = [];
 
-  constructor(seed: string, items: WeightsItems<T>) {
+  constructor(seed: string | number, items: WeightsItems<T>) {
     super(seed);
 
     this.items = items;
@@ -541,7 +541,7 @@ export class GaussianGroupController extends PRNGGroupController<number> {
   mean: number;
   spread: number;
 
-  constructor(seed: string, mean: number = 0, spread: number = 1) {
+  constructor(seed: string | number, mean: number = 0, spread: number = 1) {
     super(seed);
 
     this.mean = mean;

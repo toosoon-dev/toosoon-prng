@@ -1,6 +1,6 @@
 {
   "name": "toosoon-prng-controllers",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "This project provides PRNG functions with a set of Controllers for generating pseudo-random values using a seed-based approach and various algorithms",
   "type": "module",
   "engines": {

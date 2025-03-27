@@ -7,17 +7,17 @@
   resolved "https://registry.yarnpkg.com/@tweakpane/core/-/core-2.0.5.tgz#bae776cd530b31f5e5424641411d4b20c3baed8e"
   integrity sha512-punBgD5rKCF5vcNo6BsSOXiDR/NSs9VM7SG65QSLJIxfRaGgj54ree9zQW6bO3pNFf3AogiGgaNODUVQRk9YqQ==
 
-toosoon-prng@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-4.0.0.tgz#110e9cc02b83e863e1b82c3a9e413a205c622800"
-  integrity sha512-4Rm6gc31TKnGR5aswE2bf2Bx6zv0BAUjVelS20TdCor5ZZzQCXEIOLyaIRYuih83vU5Wh9e/EgyrkDfG9qlQMg==
+toosoon-prng@latest:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/toosoon-prng/-/toosoon-prng-4.0.2.tgz#ca1ba0de7bd93163dab9a19e56a0055ea9e6c969"
+  integrity sha512-CcZfEsoSeFHAtENk/438cjvYxY/hEKO65Y3dRW6u8FfnOy6BPTkZWy74PgKAQBVOz6Kqy9gn12JVYvcH1d49mg==
   dependencies:
-    toosoon-utils "^4.0.0"
+    toosoon-utils latest
 
-toosoon-utils@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-4.0.0.tgz#3e2f20a70c9797a9ce980bfe0f8c7e8ce3dd96ab"
-  integrity sha512-CI06ouRZea6ccIF0VB87NfbJvwZLJvv52HZQRnARocWBmIHMO0KxyTsLFzOZPELhxe4NNO0xknGEMIt1J91b9w==
+toosoon-utils@latest:
+  version "4.0.2"
+  resolved "https://registry.yarnpkg.com/toosoon-utils/-/toosoon-utils-4.0.2.tgz#0e0498381f9a3c0922cd16ffd233938b75f01f41"
+  integrity sha512-4Tbgln5LgDmSiTXTyl44i1XUvEV6WB3cEipe/MCk8YD6KjfpW99IXEjpYi89SRKpvMjdVQGifjY+nocYUDMwwA==
 
 typescript@^5.4.2:
   version "5.4.2"
